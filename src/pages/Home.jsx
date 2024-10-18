@@ -1,24 +1,52 @@
 import React from 'react';
-import Navbar from '../auth/Navbar'; 
+import Navbar from '../auth/Navbar';
 
 const Home = () => {
     return (
-        <div className="customer-signup-container">
+        <div className="customer-signup-container d-flex flex-column">
             <Navbar /> 
-            <div className="container text-center" style={{ paddingTop: '70px' }}>
-                <h1 className="text-white mt-5">Welcome to Blue Bus Service</h1>
-                <p className="text-white">We are glad to have you here! Explore our services and sign up today.</p>
+            
+        
+            <div className="container d-flex justify-content-center align-items-center" style={{ paddingTop: '110px' }}>
+                <div className="card border-0 shadow-lg bg-light mx-auto p-4">
+                    <div className="row g-3">
+                        <div className="col">
+                            <input 
+                                type="text" 
+                                className="form-control" 
+                                placeholder="From" 
+                            />
+                        </div>
+                        <div className="col">
+                            <input 
+                                type="text" 
+                                className="form-control" 
+                                placeholder="To" 
+                            />
+                        </div>
+                        <div className="col">
+                            <input 
+                                type="date" 
+                                className="form-control" 
+                            />
+                        </div>
+                        <div className="col">
+                            <button className="btn  w-100"  style={{ backgroundColor: '#0066b8', color: 'white' }}>
+                                Search
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div 
-                className="d-flex justify-content-right align-items-center" 
-                style={{ width: '20%', height: '200px', paddingTop: '300px',  marginTop:'10px', marginLeft:'60px'}}
-            >
-                <h1 className="text-white mt-5">Reserve Your Bus Tickets Now</h1>
-            </div>
-            <div>
-                <button className="btn "style={{color : 'white', backgroundColor:'#0066b8' ,  marginTop:'80px', marginLeft:'120px'}}>
-                    Reserve Seat 
-                </button>
+
+          
+            <div className="container d-flex justify-content-center align-items-center" style={{ marginTop: '20px' }}>
+                <div className="text-center" style={{ color: 'white' }}>
+                    <h3>Book your Bus Ticket Now</h3>
+                    <button className="btn mt-3" style={{ backgroundColor: '#0066b8', color: 'white' }}>
+                        Book now
+                    </button>
+                </div>
             </div>
         </div>
     );

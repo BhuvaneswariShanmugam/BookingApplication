@@ -1,17 +1,39 @@
-export const Input=({type,id,name,value,onChange, className, placeholder, ref})=>{
-    return(
-        <div>
-           <input
-             type={type}
-             name={name}
-             id={id}
-             value={value}
-             onChange={onChange}
-             className={className}
-             placeholder={placeholder}
-             ref={ref}
-          />
-        </div>
-           
-    )
-}
+import React from 'react';
+
+const Input = ({
+  type,
+  value,
+  onChange,
+  placeholder,
+  name,
+  disabled,
+  className,
+  maxLength,
+  minLength,
+  pattern,
+  required,
+  autoFocus,
+  autoComplete,
+  ...rest
+}) => {
+  return (
+    <input
+      type={type}
+      value={value}
+      onChange={onChange}
+      placeholder={placeholder}
+      name={name}
+      disabled={disabled}
+      className={className}
+      maxLength={maxLength}
+      minLength={minLength}
+      pattern={pattern}
+      required={required}
+      autoFocus={autoFocus}
+      autoComplete={autoComplete}
+      {...rest} 
+    />
+  );
+};
+
+export default Input;

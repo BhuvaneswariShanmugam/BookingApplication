@@ -3,11 +3,15 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { getLoginValidationSchema } from '../utiles/LoginValidationSchema';
 import { useNavigate } from 'react-router-dom';
+import { useSigninMutation } from '../redux/service/SignupApi';
+import { toast } from 'react-toastify';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Login = () => {
     const validationSchema = getLoginValidationSchema();
     const navigate = useNavigate();
+
+    const [signin] = useSigninMutation(); 
 
     const {
         register,
@@ -17,14 +21,21 @@ const Login = () => {
         resolver: yupResolver(validationSchema),
     });
 
-    const onSubmit = (data) => {
-        console.log("Login Data:", data);
-      
+    const onSubmit = async (data) => {
+        try {
+            const response = await signin(data).unwrap(); 
+            toast.success("Sign-in Successful!"); 
+            console.log("Sign-in Successful:", response);
+            navigate('/'); 
+        } catch (error) {
+            toast.error("Sign-in Failed! Please try again."); 
+            console.error("Sign-in Failed:", error); 
+        }
     };
 
     return (
-        <div className="customer-signup-container d-flex justify-content-center align-items-center my-4">
-            <div className="card border-0 shadow-lg bg-light mx-auto col-md-8 col-lg-4 col-xl-3" style={{ maxWidth: '400px' }}>
+        <div className="customer-signup-container d-flex justify-content-center align-items-center ">
+            <div className="card border-0 shadow-lg bg-light mx-auto " style={{ maxWidth: '380px' }}>
                 <div className="card-body">
                     <h2 className="text-center font-italic">Login</h2>
                     <form onSubmit={handleSubmit(onSubmit)} className="d-flex flex-column align-items-center">

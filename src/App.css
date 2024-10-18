@@ -49,10 +49,11 @@
 html, body {
   margin: 0;
   height: 100%;
+  overflow: hidden;
 }
 
 .customer-signup-container {
-  background-image: url('./assterts/bluebus.jpeg'); 
+  background-image: url('./assets/bluebus.jpeg'); 
   background-size: cover; 
   background-position: center; 
   background-repeat: no-repeat; 
@@ -68,11 +69,11 @@ html, body {
   z-index: 1; 
 }
 .customer-signup-container {
-  min-height: 100vh;
+  min-height: 100vh; 
   position: relative; 
   z-index: 1;
 }
 
 body {
-  padding-top: 70px; 
+  padding-top: 0; 
 }
