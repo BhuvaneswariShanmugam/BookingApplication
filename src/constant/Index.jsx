@@ -1,90 +1,67 @@
-import { Placeholder } from "react-bootstrap";
-
-export const BASE_URL =  "http://localhost:8081/api/v1/auth/";
+export const BASE_URL = "http://localhost:8081/api/v1/auth/";
+// src/constant/SignupFields.js
 
 export const FormFields = [
     {
-        ...register('firstName'),
-        placeholder: "First name",
-        className: "form-control",
-        type: "text",
-        error: errors.firstName?.message
+        id: 'first-name',
+        name: 'firstName',
+        type: 'text',
+        placeholder: 'First Name',
     },
     {
-        ...register('lastName'),
-        placeholder: "Last name",
-        className: "form-control",
-        type: "text",
-        error: errors.lastName?.message
+        id: 'last-name',
+        name: 'lastName',
+        type: 'text',
+        placeholder: 'Last Name',
     },
     {
-        ...register('dateOfBirth'),
-        className: "form-control",
-        type: "date",
-        error: errors.dateOfBirth?.message
+        id: 'date-of-birth',
+        name: 'dateOfBirth',
+        type: 'date',
     },
     {
-        ...register('email'),
-        placeholder: "Email",
-        className: "form-control",
-        type: "email",
-        error: errors.email?.message
+        id: 'email',
+        name: 'email',
+        type: 'email',
+        placeholder: 'Email',
     },
     {
-        ...register('password'),
-        placeholder: "Password",
-        className: "form-control",
-        type: "password",
-        error: errors.password?.message
+        id: 'password',
+        name: 'password',
+        type: 'password',
+        placeholder: 'Password',
     },
     {
-        label: "Gender:",
-        type: "radioGroup",
-        options: [
-            {
-                value: "Male",
-                label: "Male",
-                ...register('gender'),
-                className: "form-check-input",
-                id: "male"
-            },
-            {
-                value: "Female",
-                label: "Female",
-                ...register('gender'),
-                className: "form-check-input",
-                id: "female"
-            }
+        id:'gender-male',
+        name:'gender',
+        type:'radio',
+        options:[
+            { value:'Male', label:'Male' },
+            { value:'Female', label:'Female' }
         ],
-        error: errors.gender?.message
     },
     {
-        ...register('contactNumber'),
-        placeholder: "Contact number",
-        className: "form-control",
-        type: "text",
-        error: errors.contactNumber?.message
+        id:'contact-number',
+        name:'contactNumber',
+        type:'text',
+        placeholder:'Contact Number',
     },
     {
-        ...register('address'),
-        placeholder: "Address",
-        className: "form-control",
-        type: "text",
-        error: errors.address?.message
+        id:'address',
+        name:'address',
+        type:'text',
+        placeholder:'Address',
     },
     {
-        ...register('role'),
-        placeholder: "Role",
-        className: "form-control",
-        type: "text",
-        error: errors.role?.message
+      id:'role', 
+      name:'role', 
+      type:'text', 
+      placeholder:'Role (ADMIN or CUSTOMER)', 
     },
     {
-        type: "checkbox",
-        label: "I accept the Terms and Conditions",
-        ...register('termsAccepted'),
-        className: "form-check-input",
-        id: "termsAccepted",
-        error: errors.termsAccepted?.message
+      id:'terms-accepted', 
+      name:'termsAccepted', 
+      type:'checkbox', 
+      label:'I accept the Terms and Conditions'
     }
 ];

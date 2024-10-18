@@ -13,6 +13,8 @@ export const SignupApi = createApi({
       return headers;
     }
   }),
+
+
   endpoints: (builder) => ({  
     signup: builder.mutation({
       query: (data) => ({

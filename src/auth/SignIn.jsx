@@ -1,10 +1,12 @@
+
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import 'react-toastify/dist/ReactToastify.css';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { getLoginValidationSchema } from '../utiles/LoginValidationSchema';
 import { useNavigate } from 'react-router-dom';
 import { useSigninMutation } from '../redux/service/SignupApi';
-import { toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Login = () => {
@@ -35,10 +37,12 @@ const Login = () => {
 
     return (
         <div className="customer-signup-container d-flex justify-content-center align-items-center ">
+             {/* <ToastContainer /> */}
             <div className="card border-0 shadow-lg bg-light mx-auto " style={{ maxWidth: '380px' }}>
                 <div className="card-body">
                     <h2 className="text-center font-italic">Login</h2>
                     <form onSubmit={handleSubmit(onSubmit)} className="d-flex flex-column align-items-center">
+                    
                         <div className="mb-3 w-100">
                             <input 
                                 {...register('email')} 
@@ -66,6 +70,7 @@ const Login = () => {
                             </button>
                         </div>
                     </form>
+                    <ToastContainer />
                     <p className="text-center mt-3">
                         Don't have an account?
                         <button

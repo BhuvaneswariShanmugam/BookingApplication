@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -34,7 +35,7 @@ const Navbar = () => {
                         <button 
                             className="btn me-2" 
                             style={{ backgroundColor: '#0066b0', color: 'white' }} 
-                            onClick={() => navigate('/signin')}
+                            onClick={() => navigate('/')}
                         >
                             Sign In
                         </button>
