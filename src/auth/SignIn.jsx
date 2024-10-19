@@ -37,7 +37,7 @@ const Login = () => {
 
     return (
         <div className="customer-signup-container d-flex justify-content-center align-items-center ">
-             {/* <ToastContainer /> */}
+            
             <div className="card border-0 shadow-lg bg-light mx-auto " style={{ maxWidth: '380px' }}>
                 <div className="card-body">
                     <h2 className="text-center font-italic">Login</h2>

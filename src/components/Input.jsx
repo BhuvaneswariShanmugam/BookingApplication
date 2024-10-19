@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 
-const Input = ({
+const Input = forwardRef(({
   type,
   value,
   onChange,
@@ -14,8 +14,8 @@ const Input = ({
   required,
   autoFocus,
   autoComplete,
-  ...rest
-}) => {
+  ...rest  
+}, ref) => { 
   return (
     <input
       type={type}
@@ -31,9 +31,10 @@ const Input = ({
       required={required}
       autoFocus={autoFocus}
       autoComplete={autoComplete}
-      {...rest} 
+      ref={ref}  
+      {...rest}  
     />
   );
-};
+});
 
 export default Input;

@@ -1,12 +1,11 @@
 import React from 'react';
-import Navbar from '../auth/Navbar';
-
+import Navbar from '../auth/Navbar'; 
+// import Footer from './Footer';        
 const Home = () => {
     return (
         <div className="customer-signup-container d-flex flex-column">
             <Navbar /> 
-            
-        
+
             <div className="container d-flex justify-content-center align-items-center" style={{ paddingTop: '110px' }}>
                 <div className="card border-0 shadow-lg bg-light mx-auto p-4">
                     <div className="row g-3">
@@ -31,7 +30,7 @@ const Home = () => {
                             />
                         </div>
                         <div className="col">
-                            <button className="btn  w-100"  style={{ backgroundColor: '#0066b8', color: 'white' }}>
+                            <button className="btn w-100" style={{ backgroundColor: '#0066b8', color: 'white' }}>
                                 Search
                             </button>
                         </div>
@@ -39,7 +38,6 @@ const Home = () => {
                 </div>
             </div>
 
-          
             <div className="container d-flex justify-content-center align-items-center" style={{ marginTop: '20px' }}>
                 <div className="text-center" style={{ color: 'white' }}>
                     <h3>Book your Bus Ticket Now</h3>
@@ -48,6 +46,9 @@ const Home = () => {
                     </button>
                 </div>
             </div>
+
+          
+            {/* <Footer /> */}
         </div>
     );
 };
