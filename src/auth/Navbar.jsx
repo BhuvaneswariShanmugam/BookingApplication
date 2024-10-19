@@ -1,13 +1,26 @@
-
-
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import logo from '../assets/logo.png'; 
 import profile from '../assets/profile.png';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 const Navbar = () => {
+    const navigate = useNavigate();
+    
+    // Assuming you store user details in localStorage
+    const userName = localStorage.getItem('userName') || 'User'; // Default name if not found
+
+    const handleSignOut = () => {
+        // Clear user data from localStorage
+        localStorage.removeItem('Token');
+        localStorage.removeItem('userId');
+        localStorage.removeItem('userName');
+        
+        // Redirect to sign-in page or home page
+        navigate('/signin');
+    };
+
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top">
             <div className="container-fluid me-5">
@@ -23,13 +36,13 @@ const Navbar = () => {
                             <Link className="nav-link mx-3" to="/home" style={{ color: '#0066b8' }}>Home</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link mx-3" to="/Footer" style={{ color: '#0066b8' }}>About</Link>
+                            <Link className="nav-link mx-3" to="/about" style={{ color: '#0066b8' }}>About</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link mx-3" to="/Footer" style={{ color: '#0066b8' }}>Contact</Link>
+                            <Link className="nav-link mx-3" to="/contact" style={{ color: '#0066b8' }}>Contact</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link mx-3" to="/Footer" style={{ color: '#0066b8' }}>Services</Link>
+                            <Link className="nav-link mx-3" to="/services" style={{ color: '#0066b8' }}>Services</Link>
                         </li>
                     </ul>
 
@@ -39,10 +52,10 @@ const Navbar = () => {
                         </button>
                         <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
                             <li>
-                                <Link className="dropdown-item" to="/profile">Profile</Link>
+                                <Link className="dropdown-item" to="/profile">{userName}'s Profile</Link>
                             </li>
                             <li>
-                                <Link className="dropdown-item" to="/signout">Signout</Link>
+                                <button className="dropdown-item" onClick={handleSignOut}>Signout</button>
                             </li>
                         </ul>
                     </div>

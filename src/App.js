@@ -6,6 +6,7 @@ import Signup from './auth/Signup';
 import Navbar from  './auth/Navbar';
 import Home from './pages/Home';
 import Footer from './pages/Footer';
+import Profile from './pages/Profile';
 
 
 
@@ -19,7 +20,8 @@ function App() {
           < Route path="/home" element={<Home />}/>
           < Route path="/signup" element={<Signup />}/>
           <Route path="/" element={<SignIn />} />
-          <Route path="/Footer" element={<Footer />}/>
+          <Route path="/footer" element={<Footer />}/>
+          <Route path="/profile" element={<Profile />} />
         </Routes>
      
     </BrowserRouter>
