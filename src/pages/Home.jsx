@@ -1,7 +1,16 @@
 import React from 'react';
 import Navbar from '../auth/Navbar'; 
+import { useNavigate } from 'react-router-dom';
+
 // import Footer from './Footer';        
 const Home = () => {
+
+    const navigate=useNavigate();
+
+    const handleBookNowClick = () => {
+        navigate('/booking'); 
+    };
+
     return (
         <div className="customer-signup-container d-flex flex-column">
             <Navbar /> 
@@ -41,7 +50,9 @@ const Home = () => {
             <div className="container d-flex justify-content-center align-items-center" style={{ marginTop: '20px' }}>
                 <div className="text-center" style={{ color: 'white' }}>
                     <h3>Book your Bus Ticket Now</h3>
-                    <button className="btn mt-3" style={{ backgroundColor: '#0066b8', color: 'white' }}>
+                    <button className="btn mt-3"
+                     style={{ backgroundColor: '#0066b8', color: 'white' }}
+                     onClick={handleBookNowClick}>
                         Book now
                     </button>
                 </div>

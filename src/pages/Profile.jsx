@@ -9,32 +9,37 @@ const Profile = () => {
     const { data: userDetails, error, isLoading } = useGetUserByIdQuery(id);
 
     if (isLoading) {
-        return <p>Loading...</p>;
+        return <p>Loading...</p>; // Loading state
     }
 
     if (error) {
-        toast.error("Failed to load user details.");
-        return <p>Error loading user details!</p>;
+        toast.error("Failed to load user details."); // Error message
+        return <p>Error loading user details!</p>; // Display error message
     }
 
     const handleEditProfile = () => {
-        navigate(`/edit-profile/${id}`); 
+        navigate(`/edit-profile/${id}`); // Redirect to edit profile
     };
 
     return (
-        <div className="profile-container">
-            <h2>User Profile</h2>
-            <div className="profile-details">
-                <p><strong>First Name:</strong> {userDetails.first_name}</p>
-                <p><strong>Last Name:</strong> {userDetails.last_name}</p>
-                <p><strong>Date of Birth:</strong> {userDetails.date_of_birth}</p>
-                <p><strong>Email:</strong> {userDetails.email}</p>
-                <p><strong>Gender:</strong> {userDetails.gender}</p>
-                <p><strong>Contact Number:</strong> {userDetails.contact_number}</p>
-                <p><strong>Address:</strong> {userDetails.address}</p>
-                <p><strong>Role:</strong> {userDetails.role}</p>
+        <div className="container mt-5">
+            <h2>{userDetails.first_name}'s Profile</h2>
+            <div className="card profile-details mt-3">
+                <div className="card-body">
+                    <h3 className="card-title">User Details</h3>
+                    <p className="card-text"><strong>First Name:</strong> {userDetails.first_name || 'N/A'}</p>
+                    <p className="card-text"><strong>Last Name:</strong> {userDetails.last_name || 'N/A'}</p>
+                    <p className="card-text"><strong>Date of Birth:</strong> {userDetails.date_of_birth || 'N/A'}</p>
+                    <p className="card-text"><strong>Email:</strong> {userDetails.email || 'N/A'}</p>
+                    <p className="card-text"><strong>Gender:</strong> {userDetails.gender || 'N/A'}</p>
+                    <p className="card-text"><strong>Contact Number:</strong> {userDetails.contact_number || 'N/A'}</p>
+                    <p className="card-text"><strong>Address:</strong> {userDetails.address || 'N/A'}</p>
+                    <p className="card-text"><strong>Role:</strong> {userDetails.role || 'N/A'}</p>
+                    <button onClick={handleEditProfile} className="btn mt-3" style={{ color: 'white', backgroundColor: '#0066b8' }}>
+                        Edit Profile
+                    </button>
+                </div>
             </div>
-            <button onClick={handleEditProfile} className="btn mt-3" style={{ color: 'white', backgroundColor: '#0066b8' }} >Edit Profile</button>
             <ToastContainer />
         </div>
     );
