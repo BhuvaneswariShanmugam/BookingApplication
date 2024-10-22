@@ -8,6 +8,7 @@ import Home from './pages/Home';
 import Footer from './pages/Footer';
 import Profile from './pages/Profile';
 import Booking from './pages/Booking';
+import SleeperBus from './pages/SleeperBus';
 
 const App = () => {
   const location = useLocation();
@@ -22,6 +23,7 @@ const App = () => {
           <Route path="/footer" element={<Footer />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/booking" element={<Booking />} />
+          <Route path="/sleeper-bus" element={<SleeperBus />}/>
       </Routes>
     </div>
   );

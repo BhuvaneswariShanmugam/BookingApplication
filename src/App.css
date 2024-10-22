@@ -1,3 +1,11 @@
+/* General Styles */
+html, body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  padding-top: 0;
+}
+
 .App {
   text-align: center;
 }
@@ -36,50 +44,41 @@
     transform: rotate(360deg);
   }
 }
+
+/* Background Container */
 .customer-signup-container {
   min-height: 100vh;
+  background-image: url('./assets/bluebus.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
 }
 
+/* Card Styles */
 .card {
   display: flex;
   flex-direction: column;
   justify-content: center; 
-}
-
-html, body {
-  margin: 0;
-  height: 100%;
-  overflow: hidden;
-}
-
-.customer-signup-container {
-  background-image: url('./assets/bluebus.jpeg'); 
-  background-size: cover; 
-  background-position: center; 
-  background-repeat: no-repeat; 
-  position: fixed;
-  top: 0; 
-  left: 0; 
-  width: 100%; 
-  height: 100%; 
-  z-index: -1; 
-}
-
-.card {
   z-index: 1; 
 }
-.customer-signup-container {
-  min-height: 100vh; 
-  position: relative; 
-  z-index: 1;
+
+/* Bus Container */
+.bus-container {
+  display: flex;
+  justify-content: space-around; 
+  padding: 20px;
+  margin-top: 40px; 
+  background-color: rgba(248, 249, 250, 0.9); /* Slightly transparent for effect */
+  border-radius: 10px;
 }
 
-body {
-  padding-top: 0; 
-}
-
-
-/* Styling for seats */
+/* Seat Styles */
 .seat {
   width: 40px;
   height: 40px;
@@ -89,7 +88,7 @@ body {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s, transform 0.2s; /* Added transform for scale effect */
 }
 
 .seat.selected {
@@ -98,19 +97,10 @@ body {
 
 .seat:hover {
   background-color: #0056b3;
+  transform: scale(1.1); /* Slightly enlarge on hover */
 }
 
-/* Bus container */
-.bus-container {
-  display: flex;
-  justify-content: space-around; 
-  padding: 20px;
-  margin-top: 40px; 
-  background-color: #f8f9fa; 
-  border-radius: 10px;
-}
-
-/* Left-side container (for seat layout) */
+/* Left Container for Seat Layout */
 .left-container {
   width: 45%; 
   display: flex;
@@ -119,10 +109,10 @@ body {
   padding: 20px;
   background-color: white; 
   border-radius: 10px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); 
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2); /* Enhanced shadow */
 }
 
-/* Right-side container (for seat summary and pay button) */
+/* Right Container for Booking Summary */
 .right-container {
   width: 45%; 
   display: flex;
@@ -131,33 +121,23 @@ body {
   padding: 20px;
   background-color: white; 
   border-radius: 10px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); 
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2); /* Enhanced shadow */
 }
 
-/* Centering the bus layout inside the left container */
+/* Centering the bus layout */
 .bus {
   display: flex;
   flex-direction: column;
   align-items: center; 
 }
 
-/* Styling for the pay button */
-.pay-button {
-  padding: 10px 20px;
-  background-color: #007bff; 
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
+/* Booking Summary Styles */
 .booking-summary {
-  /* Removed the border */
   padding: 15px;
   margin-top: 20px;
   border-radius: 5px; 
   background-color: #f9f9f9; 
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for summary */
 }
 
 .summary-item {
@@ -175,104 +155,28 @@ body {
   flex: 1;
   margin-left: 10px;
   padding: 5px;
-  border: none;
+  border: 1px solid #ccc; /* Added border for clarity */
   border-radius: 3px; 
   background-color: #f9f9f9; 
 }
 
+/* Button Styles */
 .pay-button {
-  background-color: #007bff; 
-  color: white; 
-  border: none;
   padding: 10px 20px;
-  cursor: pointer;
-  border-radius: 5px;
-  margin-top: 20px;
-}
-
-/* Home */
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  background-color: #007bff; 
   color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s; /* Added transform for scale effect */
 }
 
-.App-link {
-  color: #61dafb;
+.pay-button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+  transform: scale(1.05); /* Slightly enlarge on hover */
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.customer-signup-container {
-  min-height: 100vh;
-}
-
-.card {
-  display: flex;
-  flex-direction: column;
-  justify-content: center; 
-}
-
-html, body {
-  margin: 0;
-  height: 100%;
-  overflow: hidden;
-}
-
-.customer-signup-container {
-  background-image: url('./assets/bluebus.jpeg'); 
-  background-size: cover; 
-  background-position: center; 
-  background-repeat: no-repeat; 
-  position: fixed;
-  top: 0; 
-  left: 0; 
-  width: 100%; 
-  height: 100%; 
-  z-index: -1; 
-}
-
-.card {
-  z-index: 1; 
-}
-
-.customer-signup-container {
-  min-height: 100vh; 
-  position: relative; 
-  z-index: 1;
-}
-
-body {
-  padding-top: 0; 
-}
-
+/* Navbar Styles */
 .navbar {
   background-color: transparent; 
   padding: 10px 20px; 
@@ -300,4 +204,18 @@ body {
 .nav-button:hover {
   background-color: white; 
   color: #007bff; 
+}
+
+/* Media Queries for Responsive Design */
+@media (max-width: 768px) {
+  .bus-container {
+    flex-direction: column; /* Stack containers on smaller screens */
+    align-items: center;
+  }
+
+  .left-container,
+  .right-container {
+    width: 90%; /* Full width on mobile */
+    margin-bottom: 20px;
+  }
 }

@@ -25,15 +25,6 @@ const SleeperBus = () => {
     const seatPrice = 100; // Price per seat
     const totalPrice = selectedSeats.length * seatPrice; // Total price calculation
 
-    const handlePayment = () => {
-        if (selectedSeats.length === 0) {
-            alert("Please select at least one seat before proceeding.");
-        } else {
-            alert(`Proceeding to payment for seats: ${selectedSeats.join(', ')} at a total price of $${totalPrice}`);
-            // Here, you could navigate to a payment page or perform the payment action
-        }
-    };
-
     return (
         <div>
             <div className="bus-container">
@@ -56,10 +47,8 @@ const SleeperBus = () => {
                                                 margin: '5px', 
                                                 cursor: 'pointer',
                                                 backgroundColor: selectedSeats.includes(seat) ? '#007bff' : 'transparent', // Selected seat color
-                                                borderRadius: '5px', // Rounded corners
-                                                opacity: selectedSeats.includes(seat) ? 0.6 : 1 // Visual cue for selected seats
+                                                borderRadius: '5px' // Rounded corners
                                             }}
-                                            aria-label={`Seat ${seat} ${selectedSeats.includes(seat) ? 'selected' : 'available'}`}
                                         >
                                             <img
                                                 src={seatImg}
@@ -110,7 +99,7 @@ const SleeperBus = () => {
                         </div>
                     </div>
 
-                    <button className="pay-button" onClick={handlePayment}>Continue to Pay</button>
+                    <button className="pay-button">Continue to Pay</button>
                 </div>
             </div>
         </div>

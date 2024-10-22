@@ -18,7 +18,7 @@ const Navbar = () => {
         localStorage.removeItem('userName');
         
         // Redirect to sign-in page or home page
-        navigate('/signin');
+        navigate('/');
     };
 
     return (
