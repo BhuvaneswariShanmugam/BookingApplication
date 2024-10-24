@@ -1,10 +1,9 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { BASE_URL } from '../../constant/Index'; 
 
 export const TripApi = createApi({
   reducerPath: 'tripApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: BASE_URL,
+    baseUrl: '/trip/',
     prepareHeaders: (headers) => {
       const token = localStorage.getItem('Token'); 
       if (token) {
@@ -16,9 +15,9 @@ export const TripApi = createApi({
   endpoints: (builder) => ({
     searchTrips: builder.mutation({
       query: ({ pickupPoint, destinationPoint, pickupTime }) => ({
-        url: `trip/search`,
-        method: 'POST',
-        body: { pickupPoint, destinationPoint, date: pickupTime }, // Assuming 'date' matches your backend parameter
+        url: `search`,
+        params: { pickupPoint, destinationPoint, pickupTime }, // Send params instead of body
+        method: 'GET',
       }),
     }),
   }),

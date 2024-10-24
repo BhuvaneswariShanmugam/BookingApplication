@@ -7,17 +7,16 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 const Navbar = () => {
     const navigate = useNavigate();
-    
-    // Assuming you store user details in localStorage
-    const userName = localStorage.getItem('userName') || 'User'; // Default name if not found
+ 
+    const userName = localStorage.getItem('userName') || 'User'; 
 
     const handleSignOut = () => {
-        // Clear user data from localStorage
+
         localStorage.removeItem('Token');
         localStorage.removeItem('userId');
         localStorage.removeItem('userName');
         
-        // Redirect to sign-in page or home page
+
         navigate('/');
     };
 

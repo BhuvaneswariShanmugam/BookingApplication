@@ -57,15 +57,15 @@ html, body {
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: -1;
+
 }
+
 
 /* Card Styles */
 .card {
-  display: flex;
-  flex-direction: column;
-  justify-content: center; 
+  position: relative;
   z-index: 1; 
+  background-color: #fff; 
 }
 
 /* Bus Container */
@@ -74,7 +74,7 @@ html, body {
   justify-content: space-around; 
   padding: 20px;
   margin-top: 40px; 
-  background-color: rgba(248, 249, 250, 0.9); /* Slightly transparent for effect */
+  background-color: rgba(248, 249, 250, 0.9); 
   border-radius: 10px;
 }
 
@@ -88,7 +88,7 @@ html, body {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s; /* Added transform for scale effect */
+  transition: background-color 0.3s, transform 0.2s;
 }
 
 .seat.selected {
@@ -97,31 +97,31 @@ html, body {
 
 .seat:hover {
   background-color: #0056b3;
-  transform: scale(1.1); /* Slightly enlarge on hover */
+  transform: scale(1.1); 
 }
 
 /* Left Container for Seat Layout */
 .left-container {
-  width: 45%; 
+  width: 40%; 
   display: flex;
   flex-direction: column;
   align-items: center; 
-  padding: 20px;
+  padding: 15px; 
   background-color: white; 
   border-radius: 10px;
-  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2); /* Enhanced shadow */
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2); 
 }
 
 /* Right Container for Booking Summary */
 .right-container {
-  width: 45%; 
+  width: 38%; 
   display: flex;
   flex-direction: column;
   align-items: flex-start; 
   padding: 20px;
   background-color: white; 
   border-radius: 10px;
-  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2); /* Enhanced shadow */
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2); 
 }
 
 /* Centering the bus layout */
@@ -137,7 +137,7 @@ html, body {
   margin-top: 20px;
   border-radius: 5px; 
   background-color: #f9f9f9; 
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for summary */
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); 
 }
 
 .summary-item {
@@ -155,7 +155,7 @@ html, body {
   flex: 1;
   margin-left: 10px;
   padding: 5px;
-  border: 1px solid #ccc; /* Added border for clarity */
+  border: 1px solid #ccc; 
   border-radius: 3px; 
   background-color: #f9f9f9; 
 }
@@ -168,22 +168,21 @@ html, body {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s; /* Added transform for scale effect */
+  transition: background-color 0.3s, transform 0.2s; 
 }
 
 .pay-button:hover {
-  background-color: #0056b3; /* Darker blue on hover */
-  transform: scale(1.05); /* Slightly enlarge on hover */
+  background-color: #0056b3; 
+  transform: scale(1.05); 
 }
 
 /* Navbar Styles */
 .navbar {
   background-color: transparent; 
-  padding: 10px 20px; 
   display: flex; 
   justify-content: center; 
   align-items: center; 
-  margin: 20px; 
+  
 }
 
 .nav-buttons {
@@ -209,13 +208,35 @@ html, body {
 /* Media Queries for Responsive Design */
 @media (max-width: 768px) {
   .bus-container {
-    flex-direction: column; /* Stack containers on smaller screens */
+    flex-direction: column; 
     align-items: center;
   }
 
   .left-container,
   .right-container {
-    width: 90%; /* Full width on mobile */
+    width: 90%;
     margin-bottom: 20px;
   }
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh; 
+  overflow: auto;
+}
+
+main {
+  padding: 60px 0; 
+}
+
+footer {
+  background-color: #f8f9fa;
+  padding: 10px;
+  text-align: center; 
+}
+
+header {
+  position: relative;
+  z-index: 1000; 
 }

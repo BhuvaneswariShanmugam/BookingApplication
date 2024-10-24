@@ -80,7 +80,7 @@ const Signup = () => {
                             </div>
                         ))}
 
-                     
+                  
                         <div className="mb-3 d-flex align-items-center w-100">
                             <label className="me-3 text-secondary">Gender:</label>
                             <div className="form-check me-4">
@@ -106,7 +106,7 @@ const Signup = () => {
                         </div>
                         <span className="error text-danger">{errors.gender?.message}</span>
 
-                    
+                  
                         <div className="justify-content-center mt-3 w-100">
                             <Button type="submit" className="btn w-100" style={{ color: 'white', backgroundColor: '#0066b8' }}>
                                 Sign Up
@@ -114,8 +114,9 @@ const Signup = () => {
                         </div>
                     </Form>
 
+                    
                     <p className="text-center mt-3">
-                        Already have an account?
+                        Already have an account?{' '}
                         <Button
                             type="button"
                             className="btn btn-link p-0"

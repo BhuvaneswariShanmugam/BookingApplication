@@ -6,6 +6,7 @@ import { getLoginValidationSchema } from '../utiles/LoginValidationSchema';
 import { useNavigate } from 'react-router-dom';
 import { useSigninMutation } from '../redux/service/SignupApi';
 import { ToastContainer, toast } from 'react-toastify';
+import Input from '../components/Input';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Login = () => {
@@ -23,7 +24,7 @@ const Login = () => {
     });
 
     useEffect(() => {
-        // Clear session storage on component mount
+        
         sessionStorage.removeItem('Token');
         sessionStorage.removeItem('FirstName');
     }, []);
@@ -32,16 +33,14 @@ const Login = () => {
         try {
             const result = await signin(data);
             console.log("API Response: ", result);
-    
-            // Check if the response is successful
+
             if (result?.data?.statusCode === 200) {
-                const { accessToken, refreshToken } = result.data; // Extract access and refresh tokens
-                
-                // Store the tokens in session storage
+                const { accessToken, refreshToken } = result.data; 
+
                 sessionStorage.setItem('Token', accessToken);
-                sessionStorage.setItem('RefreshToken', refreshToken); // Store refresh token if needed
-    
-                // Notify success and navigate to home
+                sessionStorage.setItem('RefreshToken', refreshToken); 
+
+               
                 toast.success("Login successful!", { autoClose: 1000 });
                 setTimeout(() => navigate('/home'), 1000);
                 reset();
@@ -54,7 +53,7 @@ const Login = () => {
             toast.error(error.message || "An error occurred during submission. Please try again.", { autoClose: 500 });
         }
     };
-    
+
     return (
         <div className="customer-signup-container d-flex justify-content-center align-items-center">
             <div className="card border-0 shadow-lg bg-light mx-auto" style={{ maxWidth: '380px' }}>
@@ -62,35 +61,38 @@ const Login = () => {
                     <h2 className="text-center font-italic">Login</h2>
                     <form onSubmit={handleSubmit(onSubmit)} className="d-flex flex-column align-items-center">
                         <div className="mb-3 w-100">
-                            <input 
+                            <Input
                                 {...register('email')} 
-                                placeholder='Email' 
-                                className="form-control" 
+                                type="email"
+                                placeholder="Email"
+                                className="form-control"
                             />
+                            
+
                             <span className="error text-danger">{errors.email?.message}</span>
                         </div>
                         <div className="mb-3 w-100">
-                            <input 
-                                type="password" 
-                                {...register('password')} 
-                                placeholder='Password' 
-                                className="form-control" 
+                            <Input
+                                type="password"
+                                {...register('password')}
+                                placeholder='Password'
+                                className="form-control"
                             />
                             <span className="error text-danger">{errors.password?.message}</span>
                         </div>
                         <div className="justify-content-center mt-3 w-100">
-                            <button 
-                                type="submit" 
-                                className="btn w-100" 
-                                style={{ color: 'white', backgroundColor: '#0066b8' }} 
+                            <button
+                                type="submit"
+                                className="btn w-100"
+                                style={{ color: 'white', backgroundColor: '#0066b8' }}
                             >
                                 Sign In
                             </button>
                         </div>
                     </form>
-                    
+
                     <ToastContainer />
-                    
+
                     <p className="text-center mt-3">
                         Don't have an account?
                         <button

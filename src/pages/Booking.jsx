@@ -1,17 +1,24 @@
 import React, { useState } from 'react';
+import { useLocation } from 'react-router-dom'; 
 import '../App.css'; 
-import seatImg from '../assets/seat.jpg'; // Image for seat
+import BookingPageNavbar from '../auth/BookingPageNavbar'; 
+import Input from '../components/Input';
+import Label from '../components/Label';
 
-const SleeperBus = () => {
+const Booking = () => {
+    const location = useLocation(); 
+    const { pickupPoint, destinationPoint, pickupDate } = location.state || {}; 
+
     const [selectedSeats, setSelectedSeats] = useState([]);
 
-    // Define rows for a sleeper bus with only 20 seats
+  
     const rows = [
-        [1, 2, 3, 4, 5],            // Row 1
-        [6, 7, 8, 9, 10],          // Row 2
-        [null, null, null, null, null], // Space
-        [11, 12, 13, 14, 15],      // Row 3
-        [16, 17, 18, 19, 20],      // Row 4
+        [1, 2, 3, 4, 5, 6, 7, 8],             
+        [9, 10, 11, 12, 13, 14, 15, 16],       
+        [null, null, null, null, null, null, null, 17],  
+        [null, null, null, null, null, null, null, 18],  
+        [19, 20, 21, 22, 23, 24, 25, 26],      
+        [27, 28, 29, 30, 31, 32, 33, 34]       
     ];
 
     const toggleSeatSelection = (seatNumber) => {
@@ -22,55 +29,36 @@ const SleeperBus = () => {
         }
     };
 
-    const seatPrice = 100; // Price per seat
-    const totalPrice = selectedSeats.length * seatPrice; // Total price calculation
 
-    const handlePayment = () => {
-        if (selectedSeats.length === 0) {
-            alert("Please select at least one seat before proceeding.");
-        } else {
-            alert(`Proceeding to payment for seats: ${selectedSeats.join(', ')} at a total price of $${totalPrice}`);
-            // Here, you could navigate to a payment page or perform the payment action
-        }
+    const seatPrice = 100;
+    const totalPrice = selectedSeats.length * seatPrice;
+
+    const handleBack = () => {
+     
+        console.log('Back button clicked');
     };
 
     return (
         <div>
+            <BookingPageNavbar onBack={handleBack} />
             <div className="bus-container">
+              
                 <div className="left-container">
-                    <h2>Select Your Sleeper Bus Seat</h2>
+                    <h2>Select Your Seat</h2>
                     <div className="bus">
                         {rows.map((row, rowIndex) => (
-                            <div key={rowIndex} className="bus-row" style={{ display: 'flex', justifyContent: 'center', marginBottom: '10px' }}>
+                            <div key={rowIndex} className="bus-row" style={{ display: 'flex', justifyContent: 'center' }}>
                                 {row.map((seat, seatIndex) =>
                                     seat === null ? (
                                         <div key={seatIndex} className="empty-space" style={{ width: '40px', height: '40px', margin: '5px' }} /> // Empty space for aisle
                                     ) : (
-                                        <div 
+                                        <button
                                             key={seat}
+                                            className={`seat ${selectedSeats.includes(seat) ? 'selected' : ''}`}
                                             onClick={() => toggleSeatSelection(seat)}
-                                            style={{ 
-                                                position: 'relative', 
-                                                width: '40px', 
-                                                height: '40px', 
-                                                margin: '5px', 
-                                                cursor: 'pointer',
-                                                backgroundColor: selectedSeats.includes(seat) ? '#007bff' : 'transparent', // Selected seat color
-                                                borderRadius: '5px', // Rounded corners
-                                                opacity: selectedSeats.includes(seat) ? 0.6 : 1 // Visual cue for selected seats
-                                            }}
-                                            aria-label={`Seat ${seat} ${selectedSeats.includes(seat) ? 'selected' : 'available'}`}
                                         >
-                                            <img
-                                                src={seatImg}
-                                                alt={`Seat ${seat}`}
-                                                style={{ 
-                                                    width: '100%', 
-                                                    height: '100%', 
-                                                    border: selectedSeats.includes(seat) ? '2px solid white' : 'none' // Optional white border for selected seats
-                                                }} 
-                                            />
-                                        </div>
+                                            {seat}
+                                        </button>
                                     )
                                 )}
                             </div>
@@ -78,12 +66,40 @@ const SleeperBus = () => {
                     </div>
                 </div>
 
+   
                 <div className="right-container">
                     <h4>Booking Summary</h4>
                     <div className="booking-summary">
                         <div className="summary-item">
-                            <label htmlFor="selected-seats">Selected Seats:</label>
-                            <input
+                            <Label htmlFor="from-point">From:</Label>
+                            <Input
+                                type="text"
+                                id="from-point"
+                                value={pickupPoint || ''}
+                                readOnly
+                            />
+                        </div>
+                        <div className="summary-item">
+                            <Label htmlFor="to-point">To:</Label>
+                            <Input
+                                type="text"
+                                id="to-point"
+                                value={destinationPoint || ''}
+                                readOnly
+                            />
+                        </div>
+                        <div className="summary-item">
+                            <Label htmlFor="pickup-date">Date:</Label>
+                            <Input
+                                type="text"
+                                id="pickup-date"
+                                value={pickupDate || ''}
+                                readOnly
+                            />
+                        </div>
+                        <div className="summary-item">
+                            <Label htmlFor="selected-seats">Selected Seats:</Label>
+                            <Input
                                 type="text"
                                 id="selected-seats"
                                 value={selectedSeats.length ? selectedSeats.join(', ') : 'None'}
@@ -91,8 +107,8 @@ const SleeperBus = () => {
                             />
                         </div>
                         <div className="summary-item">
-                            <label htmlFor="per-seat-amount">Per Seat Amount:</label>
-                            <input
+                            <Label htmlFor="per-seat-amount">Per Seat Amount:</Label>
+                            <Input
                                 type="text"
                                 id="per-seat-amount"
                                 value={`$${seatPrice}`}
@@ -100,8 +116,8 @@ const SleeperBus = () => {
                             />
                         </div>
                         <div className="summary-item">
-                            <label htmlFor="total-price">Total Price:</label>
-                            <input
+                            <Label htmlFor="total-price">Total Price:</Label>
+                            <Input
                                 type="text"
                                 id="total-price"
                                 value={`$${totalPrice}`}
@@ -110,11 +126,11 @@ const SleeperBus = () => {
                         </div>
                     </div>
 
-                    <button className="pay-button" onClick={handlePayment}>Continue to Pay</button>
+                    <button className="pay-button">Proceed to Pay</button>
                 </div>
             </div>
         </div>
     );
 };
 
-export default SleeperBus;
+export default Booking;

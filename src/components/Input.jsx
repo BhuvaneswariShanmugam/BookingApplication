@@ -2,8 +2,6 @@ import React, { forwardRef } from 'react';
 
 const Input = forwardRef(({
   type,
-  value,
-  onChange,
   placeholder,
   name,
   disabled,
@@ -19,8 +17,6 @@ const Input = forwardRef(({
   return (
     <input
       type={type}
-      value={value}
-      onChange={onChange}
       placeholder={placeholder}
       name={name}
       disabled={disabled}
@@ -32,7 +28,7 @@ const Input = forwardRef(({
       autoFocus={autoFocus}
       autoComplete={autoComplete}
       ref={ref}  
-      {...rest}  
+      {...rest} 
     />
   );
 });

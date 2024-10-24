@@ -8,7 +8,7 @@ const Home = () => {
     const [pickupDate, setPickupDate] = useState('');
     const navigate = useNavigate();
 
-    // Handle navigation to the booking page with inputs as state
+
     const handleBookNowClick = () => {
         if (pickupPoint && destinationPoint && pickupDate) {
             navigate('/booking', {
