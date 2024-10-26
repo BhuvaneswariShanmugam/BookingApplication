@@ -3,9 +3,10 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 export const TripApi = createApi({
   reducerPath: 'tripApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: '/trip/',
+    baseUrl: 'http://localhost:8081/',
     prepareHeaders: (headers) => {
-      const token = localStorage.getItem('Token'); 
+      const token = sessionStorage.getItem('Token'); 
+      console.log(token,"token");
       if (token) {
         headers.set('Authorization', `Bearer ${token}`); 
       }
@@ -15,8 +16,8 @@ export const TripApi = createApi({
   endpoints: (builder) => ({
     searchTrips: builder.mutation({
       query: ({ pickupPoint, destinationPoint, pickupTime }) => ({
-        url: `search`,
-        params: { pickupPoint, destinationPoint, pickupTime }, // Send params instead of body
+        url: `trip/search`,
+        params: { pickupPoint, destinationPoint, pickupTime }, 
         method: 'GET',
       }),
     }),
@@ -24,3 +25,6 @@ export const TripApi = createApi({
 });
 
 export const { useSearchTripsMutation } = TripApi;
+
+
+

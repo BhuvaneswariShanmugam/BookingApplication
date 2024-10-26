@@ -35,7 +35,7 @@ const Login = () => {
             console.log("API Response: ", result);
 
             if (result?.data?.statusCode === 200) {
-                const { accessToken, refreshToken } = result.data; 
+                const { accessToken, refreshToken } = result.data.data; 
 
                 sessionStorage.setItem('Token', accessToken);
                 sessionStorage.setItem('RefreshToken', refreshToken); 
