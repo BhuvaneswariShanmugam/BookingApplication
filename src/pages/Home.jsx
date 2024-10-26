@@ -3,6 +3,7 @@ import { Navbar } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { useSearchTripsMutation } from '../redux/service/TripApi'; 
 
+
 const Home = () => {
   const [pickupPoint, setPickupPoint] = useState('');
   const [destinationPoint, setDestinationPoint] = useState('');
@@ -29,7 +30,7 @@ const Home = () => {
 
   
       if (tripExists) {
-        navigate('/booking', {
+        navigate('/buses', {
           state: { pickupPoint, destinationPoint, pickupDate },
         });
       } else {

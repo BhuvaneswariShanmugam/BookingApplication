@@ -1,3 +1,6 @@
+import AC from '../assets/AC.jpg'
+
+
 export const BASE_URL = "http://localhost:8081/api/v1/auth/";
 
   
@@ -67,6 +70,27 @@ export const FormFields = [
           id: 'termsAccepted',
           isCheckbox: true
         }
-    
-      
 ];
+
+
+
+  export const acBuses = [
+    { id: 1, imgSrc: {AC}},
+    { id: 2, imgSrc: {AC}},
+    { id: 3, imgSrc: {AC}}
+    
+  ];
+
+  export const nonAcBuses = [
+    { id: 1, imgSrc: {AC}},
+    { id: 2, imgSrc: {AC}},
+    { id: 3, imgSrc: {AC}}
+    
+  ];
+
+  export const sleeperBuses = [
+    { id: 1, imgSrc: {AC}},
+    { id: 2, imgSrc: {AC}},
+    { id: 3, imgSrc: {AC}}
+    
+  ];

@@ -9,6 +9,7 @@ import Profile from './pages/Profile';
 import Booking from './pages/Booking';
 import SleeperBus from './pages/SleeperBus';
 import Layout from './pages/Layout';
+import CardGrid from './pages/listOfBuses'; 
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
           <Route path="/profile" element={<Profile />} />
           <Route path="/booking" element={<Booking />} />
           <Route path="/sleeper-bus" element={<SleeperBus />} />
+          <Route path="/buses" element={<CardGrid />}/>
         </Route>
       </Routes>
     </BrowserRouter>
