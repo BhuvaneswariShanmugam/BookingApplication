@@ -6,7 +6,7 @@ export const SignupApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: BASE_URL,
     prepareHeaders: (headers) => {
-      const token = localStorage.getItem("Token");
+      const token = sessionStorage.getItem("Token");
       if (token) {
         headers.set('Authorization', `Bearer ${token}`);
       }

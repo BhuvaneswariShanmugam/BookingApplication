@@ -1,4 +1,6 @@
-import AC from '../assets/AC.jpg'
+import AC from '../assets/AC.png'
+import nonAcBus from '../assets/nonAcBus.jpg';
+import sleeperBus from '../assets/sleeperBus.png';
 
 
 export const BASE_URL = "http://localhost:8081/api/v1/auth/";
@@ -74,23 +76,20 @@ export const FormFields = [
 
 
 
-  export const acBuses = [
-    { id: 1, imgSrc: {AC}},
-    { id: 2, imgSrc: {AC}},
-    { id: 3, imgSrc: {AC}}
-    
-  ];
+export const acBuses = [
+  { id: 1, imgSrc: nonAcBus },
+  { id: 2, imgSrc: nonAcBus },
+  
+];
 
-  export const nonAcBuses = [
-    { id: 1, imgSrc: {AC}},
-    { id: 2, imgSrc: {AC}},
-    { id: 3, imgSrc: {AC}}
-    
-  ];
+export const nonAcBuses = [
+  { id: 1, imgSrc: AC },
+  { id: 2, imgSrc: AC },
+  { id: 3, imgSrc: AC }
+];
 
-  export const sleeperBuses = [
-    { id: 1, imgSrc: {AC}},
-    { id: 2, imgSrc: {AC}},
-    { id: 3, imgSrc: {AC}}
-    
-  ];
+export const sleeperBuses = [
+  { id: 1, imgSrc: sleeperBus },
+  { id: 2, imgSrc: sleeperBus },
+  
+];
