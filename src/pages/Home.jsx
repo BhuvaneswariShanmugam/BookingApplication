@@ -30,8 +30,13 @@ const Home = () => {
 
   
       if (tripExists) {
+        // Navigate to the CardGrid route with the trip details
         navigate('/buses', {
-          state: { pickupPoint, destinationPoint, pickupDate },
+          state: { 
+            from: pickupPoint, 
+            to: destinationPoint, 
+            date: pickupDate 
+          },
         });
       } else {
         alert('No trips available for the given criteria.');

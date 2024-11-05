@@ -7,13 +7,12 @@ import Label from '../components/Label';
 
 const Booking = () => {
     const location = useLocation(); 
-    const { pickupPoint, destinationPoint, pickupDate } = location.state || {}; 
+    const { bus, from, to, date } = location.state || {}; // Extract bus and trip details from the state
 
     const [selectedSeats, setSelectedSeats] = useState([]);
 
-  
     const rows = [
-        [1, 2, 3, 4, 5, 6, 7, 8],             
+        [1, 2, 3, 4, 5, 6, 7, 8],              
         [9, 10, 11, 12, 13, 14, 15, 16],       
         [null, null, null, null, null, null, null, 17],  
         [null, null, null, null, null, null, null, 18],  
@@ -29,12 +28,9 @@ const Booking = () => {
         }
     };
 
-
-    const seatPrice = 100;
-    const totalPrice = selectedSeats.length * seatPrice;
+    const totalPrice = selectedSeats.length * bus.price; // Calculate total price based on selected seats
 
     const handleBack = () => {
-     
         console.log('Back button clicked');
     };
 
@@ -42,7 +38,6 @@ const Booking = () => {
         <div>
             <BookingPageNavbar onBack={handleBack} />
             <div className="bus-container">
-              
                 <div className="left-container">
                     <h2>Select Your Seat</h2>
                     <div className="bus">
@@ -50,7 +45,7 @@ const Booking = () => {
                             <div key={rowIndex} className="bus-row" style={{ display: 'flex', justifyContent: 'center' }}>
                                 {row.map((seat, seatIndex) =>
                                     seat === null ? (
-                                        <div key={seatIndex} className="empty-space" style={{ width: '40px', height: '40px', margin: '5px' }} /> // Empty space for aisle
+                                        <div key={seatIndex} className="empty-space" style={{ width: '40px', height: '40px', margin: '5px' }} />
                                     ) : (
                                         <button
                                             key={seat}
@@ -66,63 +61,36 @@ const Booking = () => {
                     </div>
                 </div>
 
-   
                 <div className="right-container">
                     <h4>Booking Summary</h4>
                     <div className="booking-summary">
                         <div className="summary-item">
                             <Label htmlFor="from-point">From:</Label>
-                            <Input
-                                type="text"
-                                id="from-point"
-                                value={pickupPoint || ''}
-                                readOnly
-                            />
+                            <Input type="text" id="from-point" value={from || ''} readOnly />
                         </div>
                         <div className="summary-item">
                             <Label htmlFor="to-point">To:</Label>
-                            <Input
-                                type="text"
-                                id="to-point"
-                                value={destinationPoint || ''}
-                                readOnly
-                            />
+                            <Input type="text" id="to-point" value={to || ''} readOnly />
                         </div>
                         <div className="summary-item">
                             <Label htmlFor="pickup-date">Date:</Label>
-                            <Input
-                                type="text"
-                                id="pickup-date"
-                                value={pickupDate || ''}
-                                readOnly
-                            />
+                            <Input type="text" id="pickup-date" value={date || ''} readOnly />
+                        </div>
+                        <div className="summary-item">
+                            <Label htmlFor="bus-type">Bus Type:</Label>
+                            <Input type="text" id="bus-type" value={bus.type || ''} readOnly />
                         </div>
                         <div className="summary-item">
                             <Label htmlFor="selected-seats">Selected Seats:</Label>
-                            <Input
-                                type="text"
-                                id="selected-seats"
-                                value={selectedSeats.length ? selectedSeats.join(', ') : 'None'}
-                                readOnly
-                            />
+                            <Input type="text" id="selected-seats" value={selectedSeats.length ? selectedSeats.join(', ') : 'None'} readOnly />
                         </div>
                         <div className="summary-item">
                             <Label htmlFor="per-seat-amount">Per Seat Amount:</Label>
-                            <Input
-                                type="text"
-                                id="per-seat-amount"
-                                value={`$${seatPrice}`}
-                                readOnly
-                            />
+                            <Input type="text" id="per-seat-amount" value={`$${bus.price}`} readOnly />
                         </div>
                         <div className="summary-item">
                             <Label htmlFor="total-price">Total Price:</Label>
-                            <Input
-                                type="text"
-                                id="total-price"
-                                value={`$${totalPrice}`}
-                                readOnly
-                            />
+                            <Input type="text" id="total-price" value={`$${totalPrice}`} readOnly />
                         </div>
                     </div>
 

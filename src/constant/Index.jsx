@@ -1,4 +1,4 @@
-import AC from '../assets/AC.png'
+import AC from '../assets/AC.jpg'
 import nonAcBus from '../assets/nonAcBus.jpg';
 import sleeperBus from '../assets/sleeperBus.png';
 
@@ -75,21 +75,17 @@ export const FormFields = [
 ];
 
 
-
 export const acBuses = [
-  { id: 1, imgSrc: nonAcBus },
-  { id: 2, imgSrc: nonAcBus },
-  
+  { id: 1, imgSrc: AC, price: 700, type: 'AC' },
+  { id: 2, imgSrc: AC, price: 700, type: 'AC' },
 ];
 
 export const nonAcBuses = [
-  { id: 1, imgSrc: AC },
-  { id: 2, imgSrc: AC },
-  { id: 3, imgSrc: AC }
+  { id: 3, imgSrc: nonAcBus, price: 520, type: 'NON-AC' },
+  { id: 4, imgSrc: nonAcBus, price: 520, type: 'NON-AC' },
 ];
 
 export const sleeperBuses = [
-  { id: 1, imgSrc: sleeperBus },
-  { id: 2, imgSrc: sleeperBus },
-  
+  { id: 5, imgSrc: sleeperBus, price: 950, type: 'SLEEPER' }, 
+  { id: 6, imgSrc: sleeperBus, price: 950, type: 'SLEEPER' },
 ];

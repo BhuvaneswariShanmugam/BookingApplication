@@ -1,24 +1,24 @@
 import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom'; 
-import '../App.css'; 
-
+import { useLocation } from 'react-router-dom';
+import '../App.css';
 import Input from '../components/Input';
 import Label from '../components/Label';
-import seat from '../assets/seat.jpg'; // Import seat image
+import seat from '../assets/seat.jpg'; // Import the seat image
 
-const SleeperBus = () => {
-    const location = useLocation(); 
+const AcBus = () => {
+    const location = useLocation();
     const { bus, from, to, date } = location.state || {}; // Extract bus and trip details from the state
 
     const [selectedSeats, setSelectedSeats] = useState([]);
-    const [isPaid, setIsPaid] = useState(false); // State to track payment status
+    const [isPaid, setIsPaid] = useState(false); // State to check if payment is made
 
     const rows = [
-        [1, 2, 3, 4, 5], // Top row of sleeper bus
-        [6, 7, 8, 9, 10], // Next row
-        [null, null, null, null, null], // Empty space for aisle
-        [11, 12, 13, 14, 15], // Third row
-        [16, 17, 18, 19, 20], // Bottom row
+        [1, 2, 3, 4, 5, 6, 7, 8],
+        [9, 10, 11, 12, 13, 14, 15, 16],
+        [null, null, null, null, null, null, null, 17],
+        [null, null, null, null, null, null, null, 18],
+        [19, 20, 21, 22, 23, 24, 25, 26],
+        [27, 28, 29, 30, 31, 32, 33, 34]
     ];
 
     const toggleSeatSelection = (seatNumber) => {
@@ -33,7 +33,7 @@ const SleeperBus = () => {
 
     const handlePayment = () => {
         if (selectedSeats.length > 0) {
-            setIsPaid(true); // Update payment status
+            setIsPaid(true); // Set payment status to true
             alert(`Payment Successful! Total Amount: $${totalPrice}`);
         } else {
             alert('Please select at least one seat to proceed with payment.');
@@ -41,10 +41,10 @@ const SleeperBus = () => {
     };
 
     const handleDownloadTicket = () => {
-        if (!isPaid) {
-            alert('Please complete the payment before downloading the ticket.');
-        } else if (selectedSeats.length === 0) {
+        if (selectedSeats.length === 0) {
             alert('Please select a seat to download the ticket.');
+        } else if (!isPaid) {
+            alert('You must pay to confirm your ticket before downloading.');
         } else {
             // Logic to download the ticket
             alert('Ticket downloaded successfully!');
@@ -55,7 +55,7 @@ const SleeperBus = () => {
         <div>
             <div className="bus-container">
                 <div className="left-container">
-                    <h2>Select Your Sleeper Bus Seat</h2>
+                    <h2>Select Your AC Seat</h2>
                     <div className="bus">
                         {rows.map((row, rowIndex) => (
                             <div key={rowIndex} className="bus-row" style={{ display: 'flex', justifyContent: 'center' }}>
@@ -67,14 +67,14 @@ const SleeperBus = () => {
                                             key={seatNumber}
                                             src={seat}
                                             alt={`Seat ${seatNumber}`}
-                                            className={`seat ${selectedSeats.includes(seatNumber) ? 'selected' : ''}`}
+                                            className={`seat-image ${selectedSeats.includes(seatNumber) ? 'selected' : ''}`}
                                             onClick={() => toggleSeatSelection(seatNumber)}
                                             style={{
                                                 width: '40px',
                                                 height: '40px',
                                                 margin: '5px',
                                                 cursor: 'pointer',
-                                                border: selectedSeats.includes(seatNumber) ? '2px solid green' : '2px solid transparent'
+                                                opacity: selectedSeats.includes(seatNumber) ? 0.5 : 1, // Visual indication of selected seat
                                             }}
                                         />
                                     )
@@ -86,11 +86,10 @@ const SleeperBus = () => {
 
                 <div className="right-container">
                     <h4>Booking Summary</h4>
-                    
                     <div className="booking-summary">
                         <div className="summary-item">
                             <Label htmlFor="bus-id">Bus ID:</Label>
-                            <Input type="text" id="bus-id" value={bus.id || 'N/A'} readOnly />
+                            <Input type="text" id="bus-id" value={bus.id || 'N/A'} readOnly /> {/* Displaying Bus ID */}
                         </div>
                         <div className="summary-item">
                             <Label htmlFor="from-point">From:</Label>
@@ -106,9 +105,8 @@ const SleeperBus = () => {
                         </div>
                         <div className="summary-item">
                             <Label htmlFor="bus-type">Bus Type:</Label>
-                            <Input type="text" id="bus-type" value={bus.type || 'Sleeper'} readOnly />
+                            <Input type="text" id="bus-type" value={bus.type || 'AC'} readOnly />
                         </div>
-                       
                         <div className="summary-item">
                             <Label htmlFor="selected-seats">Selected Seats:</Label>
                             <Input type="text" id="selected-seats" value={selectedSeats.length ? selectedSeats.join(', ') : 'None'} readOnly />
@@ -130,7 +128,7 @@ const SleeperBus = () => {
                         </button>
                         
                         <button 
-                            className="pay-button" 
+                            className="pay-button" // Use the same class as the pay button for styling
                             onClick={handleDownloadTicket} 
                         >
                             Download Ticket
@@ -142,4 +140,4 @@ const SleeperBus = () => {
     );
 };
 
-export default SleeperBus;
+export default AcBus;

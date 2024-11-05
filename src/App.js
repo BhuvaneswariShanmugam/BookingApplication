@@ -10,6 +10,9 @@ import Booking from './pages/Booking';
 import SleeperBus from './pages/SleeperBus';
 import Layout from './pages/Layout';
 import CardGrid from './pages/listOfBuses'; 
+import AcBus from './pages/AcBus';
+import NonAcBus from './pages/NonAcBus';
+
 
 const App = () => {
   return (
@@ -21,8 +24,10 @@ const App = () => {
           <Route path="/home" element={<Home />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/booking" element={<Booking />} />
-          <Route path="/sleeper-bus" element={<SleeperBus />} />
+          <Route path="/sleeper-bus-booking" element={<SleeperBus />} />
           <Route path="/buses" element={<CardGrid />}/>
+          <Route path="/ac-bus-booking" element={< AcBus/>}/>
+          <Route path="/non-ac-bus-booking" element={< NonAcBus/>}/>
         </Route>
       </Routes>
     </BrowserRouter>
