@@ -30,7 +30,6 @@ const Home = () => {
 
   
       if (tripExists) {
-        // Navigate to the CardGrid route with the trip details
         navigate('/buses', {
           state: { 
             from: pickupPoint, 

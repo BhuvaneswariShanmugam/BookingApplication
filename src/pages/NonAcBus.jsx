@@ -1,20 +1,20 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom'; 
-import { useCreateBookingMutation } from '../redux/service/BookingApi'; // Import the mutation
+import { useCreateBookingMutation } from '../redux/service/BookingApi'; 
 import '../App.css'; 
 
 import Input from '../components/Input';
 import Label from '../components/Label';
-import seat from '../assets/seat.jpg'; // Import seat image with alias 'seat'
+import seat from '../assets/seat.jpg'; 
 
 const NonACBus = () => {
     const location = useLocation(); 
-    const { bus, from, to, date } = location.state || {}; // Extract bus and trip details from the state
-    const busId = bus?.id; // Get busId from bus object
+    const { bus, from, to, date } = location.state || {}; 
+    const busId = bus?.id; 
 
     const [selectedSeats, setSelectedSeats] = useState([]);
-    const [isPaymentSuccessful, setIsPaymentSuccessful] = useState(false); // Track payment status
-    const [createBooking] = useCreateBookingMutation(); // Hook for booking mutation
+    const [isPaymentSuccessful, setIsPaymentSuccessful] = useState(false); 
+    const [createBooking] = useCreateBookingMutation(); 
 
     const rows = [
         [1, 2, 3, 4, 5, 6, 7, 8],
@@ -33,7 +33,7 @@ const NonACBus = () => {
         }
     };
 
-    const totalPrice = selectedSeats.length * bus.price; // Calculate total price based on selected seats
+    const totalPrice = selectedSeats.length * bus.price; 
     const handlePayment = async () => {
         if (selectedSeats.length > 0) {
             try {
@@ -43,12 +43,12 @@ const NonACBus = () => {
                     pickupTime: date,
                     busNumber: busId,
                     busType: bus.type || 'Non-AC',
-                    bookedNoOfSeats: selectedSeats, // Should be an array like [3]
+                    bookedNoOfSeats: selectedSeats, 
                     perSeatAmount: bus.price,
                     totalAmount: totalPrice,
                 };
     
-                // Log the payload as JSON to verify structure
+                
                 console.log('Booking payload:', JSON.stringify(bookingDetails));
     
                 const response = await createBooking(bookingDetails).unwrap();
@@ -71,7 +71,7 @@ const NonACBus = () => {
         } else if (selectedSeats.length === 0) {
             alert('Please select a seat to download the ticket.');
         } else {
-            // Logic to download the ticket
+       
             alert('Ticket downloaded successfully!');
         }
     };

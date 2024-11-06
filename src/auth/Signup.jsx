@@ -37,6 +37,7 @@ const Signup = () => {
             });
             reset();
         } catch (err) {
+            console.error("Signup Error: ", err); 
             toast.error("Signup failed. Please try again.");
         }
     };

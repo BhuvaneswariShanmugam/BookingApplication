@@ -23,10 +23,11 @@ export const BookingApi = createApi({
               pickupTime,
               busNumber,
               busType,
+              bookedNoOfSeats,
               perSeatAmount,
               totalAmount,
             },
-            body: { bookedNoOfSeats } // Pass the seats as a body instead of params
+            // body: { bookedNoOfSeats } 
           }),
     }),
   }),

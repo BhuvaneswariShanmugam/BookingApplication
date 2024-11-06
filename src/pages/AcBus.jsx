@@ -3,14 +3,14 @@ import { useLocation } from 'react-router-dom';
 import '../App.css';
 import Input from '../components/Input';
 import Label from '../components/Label';
-import seat from '../assets/seat.jpg'; // Import the seat image
+import seat from '../assets/seat.jpg';
 
 const AcBus = () => {
     const location = useLocation();
-    const { bus, from, to, date } = location.state || {}; // Extract bus and trip details from the state
+    const { bus, from, to, date } = location.state || {}; 
 
     const [selectedSeats, setSelectedSeats] = useState([]);
-    const [isPaid, setIsPaid] = useState(false); // State to check if payment is made
+    const [isPaid, setIsPaid] = useState(false);
 
     const rows = [
         [1, 2, 3, 4, 5, 6, 7, 8],
@@ -29,11 +29,11 @@ const AcBus = () => {
         }
     };
 
-    const totalPrice = selectedSeats.length * bus.price; // Calculate total price based on selected seats
+    const totalPrice = selectedSeats.length * bus.price; 
 
     const handlePayment = () => {
         if (selectedSeats.length > 0) {
-            setIsPaid(true); // Set payment status to true
+            setIsPaid(true);
             alert(`Payment Successful! Total Amount: $${totalPrice}`);
         } else {
             alert('Please select at least one seat to proceed with payment.');
@@ -46,7 +46,7 @@ const AcBus = () => {
         } else if (!isPaid) {
             alert('You must pay to confirm your ticket before downloading.');
         } else {
-            // Logic to download the ticket
+           
             alert('Ticket downloaded successfully!');
         }
     };
@@ -74,7 +74,7 @@ const AcBus = () => {
                                                 height: '40px',
                                                 margin: '5px',
                                                 cursor: 'pointer',
-                                                opacity: selectedSeats.includes(seatNumber) ? 0.5 : 1, // Visual indication of selected seat
+                                                opacity: selectedSeats.includes(seatNumber) ? 0.5 : 1, 
                                             }}
                                         />
                                     )
@@ -89,7 +89,7 @@ const AcBus = () => {
                     <div className="booking-summary">
                         <div className="summary-item">
                             <Label htmlFor="bus-id">Bus ID:</Label>
-                            <Input type="text" id="bus-id" value={bus.id || 'N/A'} readOnly /> {/* Displaying Bus ID */}
+                            <Input type="text" id="bus-id" value={bus.id || 'N/A'} readOnly /> 
                         </div>
                         <div className="summary-item">
                             <Label htmlFor="from-point">From:</Label>
@@ -128,7 +128,7 @@ const AcBus = () => {
                         </button>
                         
                         <button 
-                            className="pay-button" // Use the same class as the pay button for styling
+                            className="pay-button" 
                             onClick={handleDownloadTicket} 
                         >
                             Download Ticket
