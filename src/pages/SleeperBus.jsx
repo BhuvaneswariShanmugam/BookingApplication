@@ -1,40 +1,68 @@
 import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom'; 
+import { useLocation, useNavigate } from 'react-router-dom'; 
 import '../App.css'; 
+import { useCreateBookingMutation } from '../redux/service/BookingApi'; 
 
 import Input from '../components/Input';
 import Label from '../components/Label';
-import seat from '../assets/seat.jpg'; // Import seat image
+import seat from '../assets/seat.jpg'; 
 
 const SleeperBus = () => {
     const location = useLocation(); 
-    const { bus, from, to, date } = location.state || {}; // Extract bus and trip details from the state
+    const navigate = useNavigate();
+    const { bus, from, to, date } = location.state || {}; 
+    const busId = bus?.id; 
 
     const [selectedSeats, setSelectedSeats] = useState([]);
-    const [isPaid, setIsPaid] = useState(false); // State to track payment status
+    const [isPaid, setIsPaid] = useState(false); 
+    const [isPaymentSuccessful, setIsPaymentSuccessful] = useState(false); 
+    const [createBooking] = useCreateBookingMutation(); 
 
     const rows = [
-        [1, 2, 3, 4, 5], // Top row of sleeper bus
-        [6, 7, 8, 9, 10], // Next row
-        [null, null, null, null, null], // Empty space for aisle
-        [11, 12, 13, 14, 15], // Third row
-        [16, 17, 18, 19, 20], // Bottom row
+        [1, 2, 3, 4, 5], 
+        [6, 7, 8, 9, 10], 
+        [null, null, null, null, null], 
+        [11, 12, 13, 14, 15],
+        [16, 17, 18, 19, 20], 
     ];
 
     const toggleSeatSelection = (seatNumber) => {
-        if (selectedSeats.includes(seatNumber)) {
-            setSelectedSeats(selectedSeats.filter((seat) => seat !== seatNumber));
-        } else {
-            setSelectedSeats([...selectedSeats, seatNumber]);
-        }
+        setSelectedSeats((prevSelectedSeats) =>
+            prevSelectedSeats.includes(seatNumber)
+                ? prevSelectedSeats.filter((seat) => seat !== seatNumber)
+                : [...prevSelectedSeats, seatNumber]
+        );
     };
 
-    const totalPrice = selectedSeats.length * bus.price; // Calculate total price based on selected seats
+    const totalPrice = selectedSeats.length * bus.price; 
 
-    const handlePayment = () => {
+    const handlePayment = async () => {
         if (selectedSeats.length > 0) {
-            setIsPaid(true); // Update payment status
-            alert(`Payment Successful! Total Amount: $${totalPrice}`);
+            setIsPaid(true);
+
+            try {
+                const bookingDetails = {
+                    pickupPoint: from,
+                    destinationPoint: to,
+                    pickupTime: date,
+                    busNumber: busId,
+                    busType: bus.type || 'Non-AC',
+                    bookedNoOfSeats: selectedSeats, 
+                    perSeatAmount: bus.price,
+                    totalAmount: totalPrice,
+                };
+    
+                console.log('Booking payload:', JSON.stringify(bookingDetails));
+    
+                const response = await createBooking(bookingDetails).unwrap();
+                console.log('Booking successful:', response);
+    
+                alert(`Payment Successful! Total Amount: $${totalPrice}`);
+                setIsPaymentSuccessful(true);
+                navigate('/home', { state: { bookingDetails, isPaymentSuccessful: true } });
+            } catch (error) {
+                alert('Failed to create booking. Please try again.');
+            }
         } else {
             alert('Please select at least one seat to proceed with payment.');
         }
@@ -46,7 +74,6 @@ const SleeperBus = () => {
         } else if (selectedSeats.length === 0) {
             alert('Please select a seat to download the ticket.');
         } else {
-            // Logic to download the ticket
             alert('Ticket downloaded successfully!');
         }
     };
@@ -86,7 +113,6 @@ const SleeperBus = () => {
 
                 <div className="right-container">
                     <h4>Booking Summary</h4>
-                    
                     <div className="booking-summary">
                         <div className="summary-item">
                             <Label htmlFor="bus-id">Bus ID:</Label>
@@ -108,7 +134,6 @@ const SleeperBus = () => {
                             <Label htmlFor="bus-type">Bus Type:</Label>
                             <Input type="text" id="bus-type" value={bus.type || 'Sleeper'} readOnly />
                         </div>
-                       
                         <div className="summary-item">
                             <Label htmlFor="selected-seats">Selected Seats:</Label>
                             <Input type="text" id="selected-seats" value={selectedSeats.length ? selectedSeats.join(', ') : 'None'} readOnly />
@@ -123,16 +148,11 @@ const SleeperBus = () => {
                         </div>
                     </div>
 
-                    {/* Button Container */}
                     <div className="button-container" style={{ display: 'flex', justifyContent: 'center', gap: '20px', marginTop: '20px' }}>
                         <button className="pay-button" onClick={handlePayment}>
                             Proceed to Pay
                         </button>
-                        
-                        <button 
-                            className="pay-button" 
-                            onClick={handleDownloadTicket} 
-                        >
+                        <button className="pay-button" onClick={handleDownloadTicket}>
                             Download Ticket
                         </button>
                     </div>

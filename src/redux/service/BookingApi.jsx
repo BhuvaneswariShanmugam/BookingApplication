@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 export const BookingApi = createApi({
   reducerPath: 'bookingApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'http://localhost:8081/',
+    baseUrl: 'http://localhost:8081/booking', 
     prepareHeaders: (headers) => {
       const token = sessionStorage.getItem('Token');
       if (token) {
@@ -13,24 +13,64 @@ export const BookingApi = createApi({
     },
   }),
   endpoints: (builder) => ({
+
     createBooking: builder.mutation({
-        query: ({ pickupPoint, destinationPoint, pickupTime, busNumber, busType, bookedNoOfSeats, perSeatAmount, totalAmount }) => ({
-            url: 'booking/create',
-            method: 'POST',
-            params: {
-              pickupPoint,
-              destinationPoint,
-              pickupTime,
-              busNumber,
-              busType,
-              bookedNoOfSeats,
-              perSeatAmount,
-              totalAmount,
-            },
-            // body: { bookedNoOfSeats } 
-          }),
+      query: ({ pickupPoint, destinationPoint, pickupTime, busNumber, busType, bookedNoOfSeats, perSeatAmount, totalAmount }) => ({
+        url: '/create',
+        method: 'POST',
+        params: {
+          pickupPoint,
+          destinationPoint,
+          pickupTime,
+          busNumber,
+          busType,
+          bookedNoOfSeats,
+          perSeatAmount,
+          totalAmount,
+        },
+      }),
+    }),
+
+    deleteBooking: builder.mutation({
+      query: ({ busNumber, seatNumbers }) => ({
+        url: '/delete',
+        method: 'DELETE',
+        params: {
+          busNumber,
+          seatNumbers,
+        },
+      }),
+    }),
+
+    getAllBookings: builder.query({
+      query: () => ({
+        url: '/fetch-all-booking-by-userId',
+        method: 'GET',
+      }),
+    }),
+
+    updateBooking: builder.mutation({
+      query: ({ pickupPoint, destinationPoint, pickupTime, busNumber, busType, bookedNoOfSeats, perSeatAmount, totalAmount }) => ({
+        url: '/update-booking',
+        method: 'PUT',
+        params: {
+          pickupPoint,
+          destinationPoint,
+          pickupTime,
+          busNumber,
+          busType,
+          bookedNoOfSeats,
+          perSeatAmount,
+          totalAmount,
+        },
+      }),
     }),
   }),
 });
 
-export const { useCreateBookingMutation } = BookingApi;
+export const {
+  useCreateBookingMutation,
+  useDeleteBookingMutation,
+  useGetAllBookingsQuery,
+  useUpdateBookingMutation,
+} = BookingApi;

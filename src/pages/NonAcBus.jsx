@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom'; 
+import { useLocation ,useNavigate} from 'react-router-dom'; 
 import { useCreateBookingMutation } from '../redux/service/BookingApi'; 
 import '../App.css'; 
 
@@ -9,6 +9,7 @@ import seat from '../assets/seat.jpg';
 
 const NonACBus = () => {
     const location = useLocation(); 
+    const navigate=useNavigate();
     const { bus, from, to, date } = location.state || {}; 
     const busId = bus?.id; 
 
@@ -48,21 +49,28 @@ const NonACBus = () => {
                     totalAmount: totalPrice,
                 };
     
-                
                 console.log('Booking payload:', JSON.stringify(bookingDetails));
     
                 const response = await createBooking(bookingDetails).unwrap();
                 console.log('Booking successful:', response);
+    
                 alert(`Payment Successful! Total Amount: $${totalPrice}`);
                 setIsPaymentSuccessful(true);
+                navigate('/bookingDetails');
             } catch (error) {
                 console.error('Failed to create booking:', error);
-                alert(`Booking failed, please try again. Reason: ${error.data?.message || 'Unknown error'}`);
+    
+                
+                const errorMessage = error?.data?.message || error.message || 'Unknown error occurred';
+                const errorStatus = error?.status || 500; 
+    
+                alert(`Booking failed, please try again. Reason: ${errorMessage} (Status Code: ${errorStatus})`);
             }
         } else {
             alert('Please select at least one seat to proceed with payment.');
         }
     };
+    
     
 
     const handleDownloadTicket = () => {
@@ -71,7 +79,6 @@ const NonACBus = () => {
         } else if (selectedSeats.length === 0) {
             alert('Please select a seat to download the ticket.');
         } else {
-       
             alert('Ticket downloaded successfully!');
         }
     };
@@ -141,8 +148,15 @@ const NonACBus = () => {
                             <Input type="text" id="total-price" value={`$${totalPrice}`} readOnly />
                         </div>
                     </div>
-                    <button onClick={handlePayment} className="btn btn-primary">Proceed to Payment</button>
-                    <button onClick={handleDownloadTicket} className="btn btn-success mt-2">Download Ticket</button>
+
+                    <div className="button-container" style={{ display: 'flex', justifyContent: 'center', gap: '20px', marginTop: '20px' }}>
+                        <button className="pay-button" onClick={handlePayment}>
+                            Proceed to Pay
+                        </button>
+                        <button className="pay-button" onClick={handleDownloadTicket}>
+                            Download Ticket
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>

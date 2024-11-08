@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation ,useNavigate} from 'react-router-dom';
+import { useCreateBookingMutation } from '../redux/service/BookingApi'; 
 import '../App.css';
 import Input from '../components/Input';
 import Label from '../components/Label';
@@ -7,10 +8,13 @@ import seat from '../assets/seat.jpg';
 
 const AcBus = () => {
     const location = useLocation();
+    const navigate=useNavigate();
     const { bus, from, to, date } = location.state || {}; 
+    const busId = bus?.id;
 
     const [selectedSeats, setSelectedSeats] = useState([]);
-    const [isPaid, setIsPaid] = useState(false);
+    const [isPaymentSuccessful, setIsPaymentSuccessful] = useState(false); 
+    const [createBooking] = useCreateBookingMutation();
 
     const rows = [
         [1, 2, 3, 4, 5, 6, 7, 8],
@@ -29,24 +33,44 @@ const AcBus = () => {
         }
     };
 
-    const totalPrice = selectedSeats.length * bus.price; 
+    const totalPrice = selectedSeats.length * bus.price;
 
-    const handlePayment = () => {
+    const handlePayment = async () => {
         if (selectedSeats.length > 0) {
-            setIsPaid(true);
-            alert(`Payment Successful! Total Amount: $${totalPrice}`);
+            try {
+                const bookingDetails = {
+                    pickupPoint: from,
+                    destinationPoint: to,
+                    pickupTime: date,
+                    busNumber: busId,
+                    busType: bus.type || 'AC',
+                    bookedNoOfSeats: selectedSeats,
+                    perSeatAmount: bus.price,
+                    totalAmount: totalPrice,
+                };
+
+                console.log('Booking payload:', JSON.stringify(bookingDetails));
+
+                const response = await createBooking(bookingDetails).unwrap();
+                console.log('Booking successful:', response);
+                alert(`Payment Successful! Total Amount: $${totalPrice}`);
+                setIsPaymentSuccessful(true);
+                navigate('/home', { state: { bookingDetails, isPaymentSuccessful: true } });
+            } catch (error) {
+                console.error('Failed to create booking:', error);
+                alert(`Booking failed, please try again. Reason: ${error.data?.message || 'Unknown error'}`);
+            }
         } else {
             alert('Please select at least one seat to proceed with payment.');
         }
     };
 
     const handleDownloadTicket = () => {
-        if (selectedSeats.length === 0) {
+        if (!isPaymentSuccessful) {
+            alert('Please complete the payment before downloading the ticket.');
+        } else if (selectedSeats.length === 0) {
             alert('Please select a seat to download the ticket.');
-        } else if (!isPaid) {
-            alert('You must pay to confirm your ticket before downloading.');
         } else {
-           
             alert('Ticket downloaded successfully!');
         }
     };
@@ -67,14 +91,14 @@ const AcBus = () => {
                                             key={seatNumber}
                                             src={seat}
                                             alt={`Seat ${seatNumber}`}
-                                            className={`seat-image ${selectedSeats.includes(seatNumber) ? 'selected' : ''}`}
+                                            className={`seat ${selectedSeats.includes(seatNumber) ? 'selected' : ''}`}
                                             onClick={() => toggleSeatSelection(seatNumber)}
                                             style={{
                                                 width: '40px',
                                                 height: '40px',
                                                 margin: '5px',
                                                 cursor: 'pointer',
-                                                opacity: selectedSeats.includes(seatNumber) ? 0.5 : 1, 
+                                                border: selectedSeats.includes(seatNumber) ? '2px solid green' : '2px solid transparent'
                                             }}
                                         />
                                     )
@@ -89,7 +113,7 @@ const AcBus = () => {
                     <div className="booking-summary">
                         <div className="summary-item">
                             <Label htmlFor="bus-id">Bus ID:</Label>
-                            <Input type="text" id="bus-id" value={bus.id || 'N/A'} readOnly /> 
+                            <Input type="text" id="bus-id" value={busId || 'N/A'} readOnly />
                         </div>
                         <div className="summary-item">
                             <Label htmlFor="from-point">From:</Label>
@@ -109,32 +133,22 @@ const AcBus = () => {
                         </div>
                         <div className="summary-item">
                             <Label htmlFor="selected-seats">Selected Seats:</Label>
-                            <Input type="text" id="selected-seats" value={selectedSeats.length ? selectedSeats.join(', ') : 'None'} readOnly />
-                        </div>
-                        <div className="summary-item">
-                            <Label htmlFor="per-seat-amount">Per Seat Amount:</Label>
-                            <Input type="text" id="per-seat-amount" value={`$${bus.price}`} readOnly />
+                            <Input type="text" id="selected-seats" value={selectedSeats.join(', ') || 'None'} readOnly />
                         </div>
                         <div className="summary-item">
                             <Label htmlFor="total-price">Total Price:</Label>
                             <Input type="text" id="total-price" value={`$${totalPrice}`} readOnly />
                         </div>
                     </div>
-
-                    {/* Button Container */}
                     <div className="button-container" style={{ display: 'flex', justifyContent: 'center', gap: '20px', marginTop: '20px' }}>
                         <button className="pay-button" onClick={handlePayment}>
                             Proceed to Pay
                         </button>
-                        
-                        <button 
-                            className="pay-button" 
-                            onClick={handleDownloadTicket} 
-                        >
+                        <button className="pay-button" onClick={handleDownloadTicket}>
                             Download Ticket
                         </button>
                     </div>
-                </div>
+                   </div>
             </div>
         </div>
     );

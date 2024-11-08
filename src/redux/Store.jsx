@@ -3,7 +3,7 @@ import { SignupApi } from '../redux/service/SignupApi';
 import {UsersApi} from '../redux/service/UserApi';
 import { TripApi } from './service/TripApi';
 import { BusApi } from './service/BusApi';
-import {BookingApi, useCreateBookingMutation} from './service/BookingApi';
+import {BookingApi,} from './service/BookingApi';
 
 
 
@@ -14,6 +14,7 @@ const store = configureStore({
     [TripApi.reducerPath]:TripApi.reducer,
     [BusApi.reducerPath]:BusApi.reducer,
     [BookingApi.reducerPath]:BookingApi.reducer
+    
 },
     middleware:(getDefaultMiddleware)=>
     getDefaultMiddleware({}).concat([SignupApi.middleware, UsersApi.middleware, TripApi.middleware, BusApi.middleware, BookingApi.middleware])

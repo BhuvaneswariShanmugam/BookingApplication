@@ -12,6 +12,8 @@ import Layout from './pages/Layout';
 import CardGrid from './pages/listOfBuses'; 
 import AcBus from './pages/AcBus';
 import NonAcBus from './pages/NonAcBus';
+import BookingDetails from './pages/BookingDetails';
+import UpdateBooking from './pages/UpdateBooking';
 
 
 const App = () => {
@@ -28,6 +30,8 @@ const App = () => {
           <Route path="/buses" element={<CardGrid />}/>
           <Route path="/ac-bus-booking" element={< AcBus/>}/>
           <Route path="/non-ac-bus-booking" element={< NonAcBus/>}/>
+          <Route path="/bookingDetails" element={<BookingDetails/>}/>
+          <Route path="/edit-booking/:id" element={<UpdateBooking />} />
         </Route>
       </Routes>
     </BrowserRouter>
