@@ -7,7 +7,7 @@ const ProfileUserName = () => {
   const [username, setUsername] = useState("");
 
   useEffect(() => {
-    const storedName = sessionStorage.getItem('FirstName'); // Change 'FirstName' to 'Name'
+    const storedName = sessionStorage.getItem('FirstName'); 
     setUsername(storedName || "Guest");
   }, []);
   

@@ -1,4 +1,3 @@
-// Layout.js
 import React from 'react';
 import Navbar from '../auth/Navbar';
 import Footer from '../pages/Footer';
@@ -8,7 +7,7 @@ const Layout = () => {
   const location = useLocation();
 
 
-  const showNavbar = ['/', '/signup', '/home'];
+  const showNavbar = [ '/home'];
 
 
   const showFooter = location.pathname === '/home';

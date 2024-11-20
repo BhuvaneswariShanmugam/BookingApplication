@@ -9,16 +9,16 @@ const Profile = () => {
     const { data: userDetails, error, isLoading } = useGetUserByIdQuery(id);
 
     if (isLoading) {
-        return <p>Loading...</p>; // Loading state
+        return <p>Loading...</p>; 
     }
 
     if (error) {
-        toast.error("Failed to load user details."); // Error message
-        return <p>Error loading user details!</p>; // Display error message
+        toast.error("Failed to load user details."); 
+        return <p>Error loading user details!</p>; 
     }
 
     const handleEditProfile = () => {
-        navigate(`/edit-profile/${id}`); // Redirect to edit profile
+        navigate(`/edit-profile/${id}`);
     };
 
     return (

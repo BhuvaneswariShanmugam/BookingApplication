@@ -14,6 +14,7 @@ import AcBus from './pages/AcBus';
 import NonAcBus from './pages/NonAcBus';
 import BookingDetails from './pages/BookingDetails';
 import UpdateBooking from './pages/UpdateBooking';
+import UserProfile from './pages/UserProfile';
 
 
 const App = () => {
@@ -21,8 +22,7 @@ const App = () => {
     <BrowserRouter>
       <Routes>
         <Route element={<Layout />}>
-          <Route path="/" element={<SignIn />} />
-          <Route path="/signup" element={<Signup />} />
+         
           <Route path="/home" element={<Home />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/booking" element={<Booking />} />
@@ -32,7 +32,11 @@ const App = () => {
           <Route path="/non-ac-bus-booking" element={< NonAcBus/>}/>
           <Route path="/bookingDetails" element={<BookingDetails/>}/>
           <Route path="/edit-booking/:id" element={<UpdateBooking />} />
+          <Route path="/profile/:userId" element={<UserProfile />} /> 
         </Route>
+        <Route path="/" element={<SignIn />} />
+        <Route path="/signup" element={<Signup />} />
+        
       </Routes>
     </BrowserRouter>
   );

@@ -55,7 +55,7 @@ const AcBus = () => {
                 console.log('Booking successful:', response);
                 alert(`Payment Successful! Total Amount: $${totalPrice}`);
                 setIsPaymentSuccessful(true);
-                navigate('/home', { state: { bookingDetails, isPaymentSuccessful: true } });
+                // navigate('/home', { state: { bookingDetails, isPaymentSuccessful: true } });
             } catch (error) {
                 console.error('Failed to create booking:', error);
                 alert(`Booking failed, please try again. Reason: ${error.data?.message || 'Unknown error'}`);

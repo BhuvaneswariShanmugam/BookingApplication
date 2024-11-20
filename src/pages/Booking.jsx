@@ -7,7 +7,7 @@ import Label from '../components/Label';
 
 const Booking = () => {
     const location = useLocation(); 
-    const { bus, from, to, date } = location.state || {}; // Extract bus and trip details from the state
+    const { bus, from, to, date } = location.state || {};
 
     const [selectedSeats, setSelectedSeats] = useState([]);
 
@@ -28,7 +28,7 @@ const Booking = () => {
         }
     };
 
-    const totalPrice = selectedSeats.length * bus.price; // Calculate total price based on selected seats
+    const totalPrice = selectedSeats.length * bus.price; 
 
     const handleBack = () => {
         console.log('Back button clicked');

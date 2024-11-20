@@ -1,49 +1,61 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { jwtDecode } from 'jwt-decode';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import logo from '../assets/logo.png'; 
-import profile from '../assets/profile.png';
+import logo from '../assets/logo.jpg';
+import profile from '../assets/profile.jpg';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 const Navbar = () => {
     const navigate = useNavigate();
- 
-    const userName = localStorage.getItem('userName') || 'User'; 
+    const [firstName, setFirstName] = useState('User');
+    const [userId, setUserId] = useState(null); 
+
+    useEffect(() => {
+        const token = sessionStorage.getItem('Token');
+        if (token) {
+            try {
+                const decodedToken = jwtDecode(token);
+                setFirstName(decodedToken.FirstName || 'User');
+                setUserId(decodedToken.UserId || null); 
+               
+            } catch (error) {
+                console.error("Error decoding token:", error);
+            }
+        }
+    }, []);
 
     const handleSignOut = () => {
-
-        localStorage.removeItem('Token');
-        localStorage.removeItem('userId');
-        localStorage.removeItem('userName');
-        
-
+        sessionStorage.removeItem('Token');
+        sessionStorage.removeItem('RefreshToken');
+        sessionStorage.removeItem('FirstName');
+        sessionStorage.removeItem('userId'); 
         navigate('/');
     };
 
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top">
             <div className="container-fluid me-5">
-                <img src={logo} alt="Logo" width="100" height="50" className="d-inline-block align-text-top ms-3" />
-                
+                <img src={logo} alt="Logo" width="90" height="60" className="d-inline-block align-text-top ms-3" />
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
-
                 <div className="collapse navbar-collapse" id="navbarNav">
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                         <li className="nav-item">
-                            <Link className="nav-link mx-3" to="/home" style={{ color: '#0066b8' }}>Home</Link>
+                            <Link className="nav-link mx-3" to="/home">Home</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link mx-3" to="/about" style={{ color: '#0066b8' }}>About</Link>
+                            <Link className="nav-link mx-3" to="/about" >About</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link mx-3" to="/contact" style={{ color: '#0066b8' }}>Contact</Link>
+                            <Link className="nav-link mx-3" to="/contact" >Contact</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link mx-3" to="/services" style={{ color: '#0066b8' }}>Services</Link>
+                            <Link className="nav-link mx-3" to="/services" >Services</Link>
                         </li>
                     </ul>
+                    <span className="dropdown-item-end py-2 px-2" to="/profile" >{firstName}</span>
 
                     <div className="dropdown">
                         <button className="btn btn-link dropdown-toggle p-0" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
@@ -51,7 +63,9 @@ const Navbar = () => {
                         </button>
                         <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
                             <li>
-                                <Link className="dropdown-item" to="/profile">{userName}'s Profile</Link>
+                                <Link className="dropdown-item" to={`/profile/${userId}`} >
+                                    {firstName}'s Profile
+                                </Link>
                             </li>
                             <li>
                                 <button className="dropdown-item" onClick={handleSignOut}>Signout</button>

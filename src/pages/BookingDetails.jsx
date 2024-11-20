@@ -6,7 +6,7 @@ import { Button, Card, Row, Col } from 'react-bootstrap';
 const BookingDetails = () => {
     const navigate = useNavigate();
     const { data, error, isLoading, isError } = useGetAllBookingsQuery();
-    const [deleteBooking] = useDeleteBookingMutation();  // Hook to delete a booking
+    const [deleteBooking] = useDeleteBookingMutation();
 
     if (isLoading) {
         return <div>Loading bookings...</div>;
@@ -17,17 +17,14 @@ const BookingDetails = () => {
     }
 
     const handleEdit = (booking, seat) => {
-        // Pass both booking data and the selected seat to the edit page
         navigate(`/edit-booking/${booking.id}`, { state: { booking, seat } });
     };
 
     const handleCancel = async (bookingId, seatNumbers) => {
         try {
-            // Call deleteBooking mutation to delete the booking
             await deleteBooking({ busNumber: bookingId, seatNumbers }).unwrap();
             alert('Booking canceled successfully!');
-            // Optionally, you can refetch the bookings or navigate away after successful delete
-            navigate('/booking-details'); // Redirect to the same page to show updated list
+            navigate('/booking-details');
         } catch (error) {
             alert('Failed to cancel booking: ' + error.message);
         }
@@ -37,37 +34,84 @@ const BookingDetails = () => {
 
     return (
         <div className="booking-details-container d-flex justify-content-center align-items-center">
-            <div className="card border-0 shadow-lg bg-light mx-auto" style={{ maxWidth: '900px' }}>
+            <div
+                className={`card border-0 shadow-lg bg-light mx-auto ${
+                    data?.length === 1 ? 'p-3' : 'p-4'
+                }`}
+                style={{ maxWidth: data?.length === 1 ? '600px' : '900px' }}
+            >
                 <div className="card-body">
-                    <h2 className="text-center font-italic" style={{ color: textColor }}>
-                        Your Booking Details
+                    <h2
+                        className="text-center font-italic"
+                        style={{ color: textColor }}
+                    >
+                        {data?.length === 1 ? 'Your Booking Detail' : 'Your Booking Details'}
                     </h2>
                     {data && data.length > 0 ? (
-                        <Row className="booking-list">
-                            {data.map((booking, index) => (
+                        <Row
+                            className="booking-list"
+                            style={{
+                                justifyContent:
+                                    data.length === 1 ? 'center' : 'space-between',
+                            }}
+                        >
+                            {data.map((booking, index) =>
                                 booking.bookedNoOfSeats.map((seat, seatIndex) => (
-                                    <Col xs={12} md={6} key={`${index}-${seatIndex}`} className="mb-4">
-                                        <Card className="booking-item" style={{ width: '100%' }}>
+                                    <Col
+                                        xs={12}
+                                        md={data.length === 1 ? 12 : 6}
+                                        key={`${index}-${seatIndex}`}
+                                        className="mb-4"
+                                    >
+                                        <Card
+                                            className="booking-item"
+                                            style={{ width: '100%' }}
+                                        >
                                             <Card.Body>
                                                 <div style={{ color: textColor }}>
-                                                    <p><strong>Bus Number:</strong> {booking.busNumber}</p>
-                                                    <p><strong>Bus Type:</strong> {booking.busType}</p>
-                                                    <p><strong>Seat Number:</strong> {seat}</p>
-                                                    <p><strong>Trip:</strong> {booking.pickupPoint} - {booking.destinationPoint}</p>
-                                                    <p><strong>Date:</strong> {new Date(booking.pickupTime).toLocaleDateString()} {new Date(booking.pickupTime).toLocaleTimeString()}</p>
-                                                    <p><strong>Per Seat Amount:</strong> ₹{booking.pricePerSeat || 'Not Available'}</p>
-                                                    <p><strong>Total Amount:</strong> ₹{booking.totalPrice || 'Not Available'}</p>
+                                                    <p>
+                                                        <strong>Bus Number:</strong> {booking.busNumber}
+                                                    </p>
+                                                    <p>
+                                                        <strong>Bus Type:</strong> {booking.busType}
+                                                    </p>
+                                                    <p>
+                                                        <strong>Seat Number:</strong> {seat}
+                                                    </p>
+                                                    <p>
+                                                        <strong>Trip:</strong> {booking.pickupPoint} -{' '}
+                                                        {booking.destinationPoint}
+                                                    </p>
+                                                    <p>
+                                                        <strong>Date:</strong>{' '}
+                                                        {new Date(booking.pickupTime).toLocaleDateString()}{' '}
+                                                        {new Date(booking.pickupTime).toLocaleTimeString()}
+                                                    </p>
+                                                    <p>
+                                                        <strong>Per Seat Amount:</strong> ₹
+                                                        {booking.pricePerSeat || 'Not Available'}
+                                                    </p>
+                                                    <p>
+                                                        <strong>Total Amount:</strong> ₹
+                                                        {booking.totalPrice || 'Not Available'}
+                                                    </p>
                                                 </div>
-                                                <div className="d-flex justify-content-between">
+                                                <div
+                                                    className={`d-flex ${
+                                                        data.length === 1
+                                                            ? 'justify-content-center'
+                                                            : 'justify-content-between'
+                                                    }`}
+                                                >
                                                     <Button
                                                         variant="primary"
-                                                        onClick={() => handleEdit(booking, seat)} // Pass both booking and seat
+                                                        onClick={() => handleEdit(booking, seat)}
                                                     >
                                                         Edit Booking
                                                     </Button>
                                                     <Button
                                                         variant="danger"
-                                                        onClick={() => handleCancel(booking.busNumber, [seat])} // Pass busNumber and seat
+                                                        onClick={() => handleCancel(booking.busNumber, [seat])}
                                                     >
                                                         Cancel Booking
                                                     </Button>
@@ -76,7 +120,7 @@ const BookingDetails = () => {
                                         </Card>
                                     </Col>
                                 ))
-                            ))}
+                            )}
                         </Row>
                     ) : (
                         <p>No bookings found</p>

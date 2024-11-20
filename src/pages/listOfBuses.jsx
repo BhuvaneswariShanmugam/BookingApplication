@@ -10,7 +10,6 @@ const CardGrid = () => {
     const handleBusClick = (bus) => {
         let bookingPath;
     
-        // Set the path based on the bus type
         if (bus.type === 'AC') {
             bookingPath = '/ac-bus-booking';
         } else if (bus.type === 'NON-AC') {
@@ -20,9 +19,9 @@ const CardGrid = () => {
         }
     
         navigate(bookingPath, {
-            state: { bus, from, to, date }, // No need to add busId separately
+            state: { bus, from, to, date }, 
         });
-    };
+    }; 
 
     return (
         <div className="container">
@@ -30,7 +29,7 @@ const CardGrid = () => {
                 <strong>{from}</strong> - <strong>{to}</strong> on <strong>{date}</strong>
             </h3>
 
-            {/* Non-AC Buses Card */}
+            {/* Non-AC Buses */}
             <div className="mb-4">
                 <div className="card">
                     <div className="card-body">
@@ -47,7 +46,7 @@ const CardGrid = () => {
                 </div>
             </div>
 
-            {/* AC Buses Card */}
+            {/* AC Buses */}
             <div className="mb-4">
                 <div className="card">
                     <div className="card-body">
@@ -64,7 +63,7 @@ const CardGrid = () => {
                 </div>
             </div>
 
-            {/* Sleeper Buses Card */}
+            {/* Sleeper Buses  */}
             <div className="mb-4">
                 <div className="card">
                     <div className="card-body">

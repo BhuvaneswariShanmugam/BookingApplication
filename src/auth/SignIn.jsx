@@ -8,8 +8,9 @@ import { useSigninMutation } from '../redux/service/SignupApi';
 import { ToastContainer, toast } from 'react-toastify';
 import Input from '../components/Input';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { jwtDecode } from 'jwt-decode'; 
 
-const Login = () => {
+const SignIn = () => {
     const validationSchema = getLoginValidationSchema();
     const navigate = useNavigate();
     const [signin] = useSigninMutation();
@@ -24,7 +25,6 @@ const Login = () => {
     });
 
     useEffect(() => {
-        
         sessionStorage.removeItem('Token');
         sessionStorage.removeItem('FirstName');
     }, []);
@@ -33,14 +33,17 @@ const Login = () => {
         try {
             const result = await signin(data);
             console.log("API Response: ", result);
-
+    
             if (result?.data?.statusCode === 200) {
                 const { accessToken, refreshToken } = result.data.data; 
-
-                sessionStorage.setItem('Token', accessToken);
-                sessionStorage.setItem('RefreshToken', refreshToken); 
-
                
+                const decodedToken = jwtDecode(accessToken); 
+                const firstName = decodedToken.FirstName || 'User'; 
+                
+                sessionStorage.setItem('Token', accessToken);
+                sessionStorage.setItem('RefreshToken', refreshToken);
+                sessionStorage.setItem('FirstName', firstName); 
+    
                 toast.success("Login successful!", { autoClose: 1000 });
                 setTimeout(() => navigate('/home'), 1000);
                 reset();
@@ -53,9 +56,10 @@ const Login = () => {
             toast.error(error.message || "An error occurred during submission. Please try again.", { autoClose: 500 });
         }
     };
+    
 
     return (
-        <div className="customer-signup-container d-flex justify-content-center align-items-center">
+        <div className="customer-container d-flex justify-content-center align-items-center">
             <div className="card border-0 shadow-lg bg-light mx-auto" style={{ maxWidth: '380px' }}>
                 <div className="card-body">
                     <h2 className="text-center font-italic">Login</h2>
@@ -67,8 +71,6 @@ const Login = () => {
                                 placeholder="Email"
                                 className="form-control"
                             />
-                            
-
                             <span className="error text-danger">{errors.email?.message}</span>
                         </div>
                         <div className="mb-3 w-100">
@@ -109,4 +111,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default SignIn;

@@ -6,17 +6,15 @@ const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [userId, setUserId] = useState(null);
 
-  // Function to get the userId from token
   const getUserIdFromToken = () => {
-    const token = localStorage.getItem('token'); // Retrieve the JWT from localStorage
+    const token = localStorage.getItem('token');
     if (token) {
       const decodedToken = jwt_decode(token);
-      return decodedToken.userId;  // Assuming the userId is in the token's payload
+      return decodedToken.userId;  
     }
     return null;
   };
 
-  // Set userId when the component mounts or token changes
   useEffect(() => {
     const id = getUserIdFromToken();
     setUserId(id);
@@ -34,7 +32,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ userId, login, logout }}>
+    <AuthContext.Provider value={{ userId, SignIn, Signout }}>
       {children}
     </AuthContext.Provider>
   );
