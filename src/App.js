@@ -15,6 +15,7 @@ import NonAcBus from './pages/NonAcBus';
 import BookingDetails from './pages/BookingDetails';
 import UpdateBooking from './pages/UpdateBooking';
 import UserProfile from './pages/UserProfile';
+import Footer from './pages/Footer';
 
 
 const App = () => {
@@ -33,6 +34,7 @@ const App = () => {
           <Route path="/bookingDetails" element={<BookingDetails/>}/>
           <Route path="/edit-booking/:id" element={<UpdateBooking />} />
           <Route path="/profile/:userId" element={<UserProfile />} /> 
+          <Route path="/footer" element={<Footer/>}/>
         </Route>
         <Route path="/" element={<SignIn />} />
         <Route path="/signup" element={<Signup />} />

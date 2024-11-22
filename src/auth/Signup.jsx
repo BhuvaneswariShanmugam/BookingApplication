@@ -37,22 +37,21 @@ const Signup = () => {
             });
             reset();
         } catch (err) {
-            console.error("Signup Error: ", err); 
+            console.error("Signup Error: ", err);
             toast.error("Signup failed. Please try again.");
         }
     };
 
     return (
-        <div className="customer-signup-container d-flex justify-content-center align-items-center my-4">
+        <div className="customer-container d-flex justify-content-center align-items-center my-4">
             <ToastContainer />
             <div className="card border-0 shadow-lg bg-light" style={{ maxWidth: '400px' }}>
                 <div className="card-body flex-column justify-content-between">
                     <h2 className="text-center font-italic p-4">Customer Signup</h2>
 
                     <Form onSubmit={handleSubmit(onSubmit)} className="d-flex flex-column align-items-center w-100">
-                      
                         {FormFields.map((field, index) => (
-                            <div key={index} className="mb-3 w-100"> 
+                            <div key={index} className="mb-3 w-100">
                                 {!field.isCheckbox ? (
                                     <>
                                         <Input
@@ -81,41 +80,23 @@ const Signup = () => {
                             </div>
                         ))}
 
-                  
-                        <div className="mb-3 d-flex align-items-center w-100">
-                            <label className="me-3 text-secondary">Gender:</label>
-                            <div className="form-check me-4">
-                                <Input
-                                    type="radio"
-                                    {...register('gender')}
-                                    value="Male"
-                                    id="male"
-                                    className="form-check-input"
-                                />
-                                <label htmlFor="male" className="form-check-label ms-3 text-secondary">Male</label>
-                            </div>
-                            <div className="form-check">
-                                <Input
-                                    type="radio"
-                                    {...register('gender')}
-                                    value="Female"
-                                    id="female"
-                                    className="form-check-input"
-                                />
-                                <label htmlFor="female" className="form-check-label ms-3 text-secondary">Female</label>
-                            </div>
-                        </div>
-                        <span className="error text-danger">{errors.gender?.message}</span>
-
-                  
                         <div className="justify-content-center mt-3 w-100">
-                            <Button type="submit" className="btn w-100" style={{ color: 'white', backgroundColor: '#0066b8' }}>
+                            <Button
+                                type="submit"
+                                className="btn w-100"
+                                style={{
+                                    color: 'white',
+                                    backgroundColor: '#0066b8',
+                                    margin: 0,
+                                    padding: '0.6rem 1rem',
+                                    border: 'none',
+                                }}
+                            >
                                 Sign Up
                             </Button>
                         </div>
                     </Form>
 
-                    
                     <p className="text-center mt-3">
                         Already have an account?{' '}
                         <Button

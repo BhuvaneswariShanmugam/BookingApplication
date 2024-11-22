@@ -44,15 +44,16 @@ const Navbar = () => {
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                         <li className="nav-item">
                             <Link className="nav-link mx-3" to="/home">Home</Link>
+                      
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link mx-3" to="/about" >About</Link>
+                            <Link className="nav-link mx-3" to="/footer" >About</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link mx-3" to="/contact" >Contact</Link>
+                            <Link className="nav-link mx-3" to="/footer" >Contact</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link mx-3" to="/services" >Services</Link>
+                            <Link className="nav-link mx-3" to="/footer" >Services</Link>
                         </li>
                     </ul>
                     <span className="dropdown-item-end py-2 px-2" to="/profile" >{firstName}</span>

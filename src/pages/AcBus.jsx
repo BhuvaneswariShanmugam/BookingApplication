@@ -1,19 +1,21 @@
 import React, { useState } from 'react';
-import { useLocation ,useNavigate} from 'react-router-dom';
-import { useCreateBookingMutation } from '../redux/service/BookingApi'; 
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useCreateBookingMutation } from '../redux/service/BookingApi';
 import '../App.css';
 import Input from '../components/Input';
 import Label from '../components/Label';
 import seat from '../assets/seat.jpg';
+import Navbar from '../auth/Navbar';
+import Footer from '../pages/Footer';
 
 const AcBus = () => {
     const location = useLocation();
-    const navigate=useNavigate();
-    const { bus, from, to, date } = location.state || {}; 
+    const navigate = useNavigate();
+    const { bus, from, to, date } = location.state || {};
     const busId = bus?.id;
 
     const [selectedSeats, setSelectedSeats] = useState([]);
-    const [isPaymentSuccessful, setIsPaymentSuccessful] = useState(false); 
+    const [isPaymentSuccessful, setIsPaymentSuccessful] = useState(false);
     const [createBooking] = useCreateBookingMutation();
 
     const rows = [
@@ -55,7 +57,6 @@ const AcBus = () => {
                 console.log('Booking successful:', response);
                 alert(`Payment Successful! Total Amount: $${totalPrice}`);
                 setIsPaymentSuccessful(true);
-                // navigate('/home', { state: { bookingDetails, isPaymentSuccessful: true } });
             } catch (error) {
                 console.error('Failed to create booking:', error);
                 alert(`Booking failed, please try again. Reason: ${error.data?.message || 'Unknown error'}`);
@@ -77,40 +78,36 @@ const AcBus = () => {
 
     return (
         <div>
-            <div className="bus-container">
-                <div className="left-container">
-                    <h2>Select Your AC Seat</h2>
-                    <div className="bus">
-                        {rows.map((row, rowIndex) => (
-                            <div key={rowIndex} className="bus-row" style={{ display: 'flex', justifyContent: 'center' }}>
-                                {row.map((seatNumber, seatIndex) =>
-                                    seatNumber === null ? (
-                                        <div key={seatIndex} className="empty-space" style={{ width: '40px', height: '40px', margin: '5px' }} />
-                                    ) : (
-                                        <img
-                                            key={seatNumber}
-                                            src={seat}
-                                            alt={`Seat ${seatNumber}`}
-                                            className={`seat ${selectedSeats.includes(seatNumber) ? 'selected' : ''}`}
-                                            onClick={() => toggleSeatSelection(seatNumber)}
-                                            style={{
-                                                width: '40px',
-                                                height: '40px',
-                                                margin: '5px',
-                                                cursor: 'pointer',
-                                                border: selectedSeats.includes(seatNumber) ? '2px solid green' : '2px solid transparent'
-                                            }}
-                                        />
-                                    )
-                                )}
+            <Navbar />
+
+
+            <div className="bus-container" style={{ marginTop: '0px',height:'88vh',marginRight:'0px' }}>
+            
+
+                <div >
+                    {/* <h2>Select Your AC Seat</h2> */}
+                    <div className="bus" >
+                        <div className="bus-image" style={{ marginTop: '200px' ,marginRight:'0px'}}>
+                            <img src={bus?.imgSrc || seat} alt={`Bus ${bus?.id}`} style={{ width: '550px', height: 'auto', paddingBottom: '4px', border: 'none', top: '200px' }} />
+                            <div className='text' style={{ width: '700px', height: '150px' }}>
+                                <h2 className="mb-2">AC Bus Travel</h2>
+                                <p>⭐⭐⭐⭐⭐(4.5)</p>
+                                <p>
+                                    Bus air conditioners are indispensable for providing acomfortable and enjoyable journey for passengers. By understanding the benefits, considerations, and maintenance
+                                    tips associated with bus air conditioners, operators can make informed decisions to enhance passenger experience.
+                                </p>
                             </div>
-                        ))}
+                        </div>
                     </div>
                 </div>
 
-                <div className="right-container">
-                    <h4>Booking Summary</h4>
-                    <div className="booking-summary">
+
+
+
+                <div >
+
+
+                    <div className='summary' style={{ marginTop: '50px', marginRight: '100px', marginLeft: '200px' }}>
                         <div className="summary-item">
                             <Label htmlFor="bus-id">Bus ID:</Label>
                             <Input type="text" id="bus-id" value={busId || 'N/A'} readOnly />
@@ -135,21 +132,54 @@ const AcBus = () => {
                             <Label htmlFor="selected-seats">Selected Seats:</Label>
                             <Input type="text" id="selected-seats" value={selectedSeats.join(', ') || 'None'} readOnly />
                         </div>
-                        <div className="summary-item">
+                        <div className="summary-item" style={{ paddingBottom: '5px' }}>
                             <Label htmlFor="total-price">Total Price:</Label>
                             <Input type="text" id="total-price" value={`$${totalPrice}`} readOnly />
                         </div>
+
+                        <div className='btn-container d-flex justify-content-between mt-5' >
+                            <button className="pay-button  btn btn-primary" onClick={handlePayment}> To Pay</button>
+                            <button className="pay-button btn  btn-primary" onClick={handleDownloadTicket}>Download Ticket</button>
+                        </div>
                     </div>
-                    <div className="button-container" style={{ display: 'flex', justifyContent: 'center', gap: '20px', marginTop: '20px' }}>
-                        <button className="pay-button" onClick={handlePayment}>
-                            Proceed to Pay
-                        </button>
-                        <button className="pay-button" onClick={handleDownloadTicket}>
-                            Download Ticket
-                        </button>
+                    
+
+
+
+                    
+                    <div className="bus" style={{ marginRight: '30px', marginTop: '50px' }}>
+                        {rows.map((row, rowIndex) => (
+                            <div key={rowIndex} className="bus-row" style={{ display: 'flex', justifyContent: 'center' }}>
+                                {row.map((seatNumber, seatIndex) =>
+                                    seatNumber === null ? (
+                                        <div key={seatIndex} className="empty-space" style={{ width: '40px', height: '40px', margin: '3px' }} />
+                                    ) : (
+                                        <img
+                                            key={seatNumber}
+                                            src={seat}
+                                            alt={`Seat ${seatNumber}`}
+                                            className={`seat ${selectedSeats.includes(seatNumber) ? 'selected' : ''}`}
+                                            onClick={() => toggleSeatSelection(seatNumber)}
+                                            style={{
+                                                width: '40px',
+                                                height: '40px',
+                                                margin: '3px',
+                                                cursor: 'pointer',
+                                                border: selectedSeats.includes(seatNumber) ? '2px solid green' : '2px solid transparent'
+                                            }}
+                                        />
+                                    )
+                                )}
+                            </div>
+                        ))}
                     </div>
-                   </div>
+
+
+                </div>
             </div>
+
+            {/* 
+        <Footer /> */}
         </div>
     );
 };

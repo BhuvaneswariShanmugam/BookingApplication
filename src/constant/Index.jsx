@@ -1,6 +1,6 @@
-import AC from '../assets/AC.jpg'
-import nonAcBus from '../assets/nonAcBus.jpg';
-import sleeperBus from '../assets/sleeperBus.png';
+import AC from '../assets/cat-bus2.png'
+import bus from '../assets/bus.jpg';
+import sleeperBus from '../assets/cat-bus1.png';
 
 
 export const BASE_URL = "http://localhost:8081/api/v1/auth/";
@@ -22,13 +22,7 @@ export const FormFields = [
           className: 'w-48',
           id: 'lastName'
         },
-        {
-          name: 'dateOfBirth',
-          placeholder: 'Date of Birth',
-          type: 'date',
-          className: 'w-100',
-          id: 'dateOfBirth'
-        },
+        
         {
           name: 'email',
           placeholder: 'Email',
@@ -43,20 +37,8 @@ export const FormFields = [
           className: 'w-100',
           id: 'password'
         },
-        {
-          name: 'contactNumber',
-          placeholder: 'Contact number',
-          type: 'text',
-          className: 'w-100',
-          id: 'contactNumber'
-        },
-        {
-          name: 'address',
-          placeholder: 'Address',
-          type: 'text',
-          className: 'w-100',
-          id: 'address'
-        },
+        
+       
         {
           name: 'role',
           placeholder: 'Role',
@@ -81,8 +63,8 @@ export const acBuses = [
 ];
 
 export const nonAcBuses = [
-  { id: 3, imgSrc: nonAcBus, price: 520, type: 'NON-AC' },
-  { id: 4, imgSrc: nonAcBus, price: 520, type: 'NON-AC' },
+  { id: 3, imgSrc: bus, price: 520, type: 'NON-AC' },
+  { id: 4, imgSrc: bus, price: 520, type: 'NON-AC' },
 ];
 
 export const sleeperBuses = [
