@@ -65,6 +65,14 @@ export const BookingApi = createApi({
         },
       }),
     }),
+
+    getAvailableBuses: builder.query({
+      query: (busId) => ({
+        url: `/available-buses`,  
+        method: 'GET',
+        params:{busId}
+      }),
+    }),
   }),
 });
 
@@ -73,4 +81,5 @@ export const {
   useDeleteBookingMutation,
   useGetAllBookingsQuery,
   useUpdateBookingMutation,
+  useGetAvailableBusesQuery,
 } = BookingApi;

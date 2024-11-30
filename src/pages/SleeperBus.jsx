@@ -34,7 +34,7 @@ const SleeperBus = () => {
         );
     };
 
-    const totalPrice = selectedSeats.length * bus.price;
+    const totalPrice = selectedSeats.length * bus.discountedPrice;
 
     const handlePayment = async () => {
         if (selectedSeats.length > 0) {
@@ -48,8 +48,8 @@ const SleeperBus = () => {
                     busNumber: busId,
                     busType: bus.type || 'Non-AC',
                     bookedNoOfSeats: selectedSeats,
-                    perSeatAmount: bus.price,
-                    totalAmount: totalPrice,
+                    perSeatAmount: bus.discountedPrice,
+                    totalAmount: selectedSeats.length * bus.discountedPrice,
                 };
 
                 console.log('Booking payload:', JSON.stringify(bookingDetails));

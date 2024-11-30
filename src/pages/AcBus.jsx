@@ -6,7 +6,6 @@ import Input from '../components/Input';
 import Label from '../components/Label';
 import seat from '../assets/seat.jpg';
 import Navbar from '../auth/Navbar';
-import Footer from '../pages/Footer';
 
 const AcBus = () => {
     const location = useLocation();
@@ -35,7 +34,7 @@ const AcBus = () => {
         }
     };
 
-    const totalPrice = selectedSeats.length * bus.price;
+    const totalPrice = selectedSeats.length * bus.discountedPrice;
 
     const handlePayment = async () => {
         if (selectedSeats.length > 0) {
@@ -47,8 +46,8 @@ const AcBus = () => {
                     busNumber: busId,
                     busType: bus.type || 'AC',
                     bookedNoOfSeats: selectedSeats,
-                    perSeatAmount: bus.price,
-                    totalAmount: totalPrice,
+                    perSeatAmount: bus.discountedPrice,
+                    totalAmount: selectedSeats.length * bus.discountedPrice,
                 };
 
                 console.log('Booking payload:', JSON.stringify(bookingDetails));
@@ -80,34 +79,10 @@ const AcBus = () => {
         <div>
             <Navbar />
 
-
-            <div className="bus-container" style={{ marginTop: '0px',height:'88vh',marginRight:'0px' }}>
-            
-
-                <div >
-                    {/* <h2>Select Your AC Seat</h2> */}
-                    <div className="bus" >
-                        <div className="bus-image" style={{ marginTop: '200px' ,marginRight:'0px'}}>
-                            <img src={bus?.imgSrc || seat} alt={`Bus ${bus?.id}`} style={{ width: '550px', height: 'auto', paddingBottom: '4px', border: 'none', top: '200px' }} />
-                            <div className='text' style={{ width: '700px', height: '150px' }}>
-                                <h2 className="mb-2">AC Bus Travel</h2>
-                                <p>⭐⭐⭐⭐⭐(4.5)</p>
-                                <p>
-                                    Bus air conditioners are indispensable for providing acomfortable and enjoyable journey for passengers. By understanding the benefits, considerations, and maintenance
-                                    tips associated with bus air conditioners, operators can make informed decisions to enhance passenger experience.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-
-
-                <div >
-
-
-                    <div className='summary' style={{ marginTop: '50px', marginRight: '100px', marginLeft: '200px' }}>
+            <div className="bus-container" style={{ marginTop: '0px', height: '88vh', marginRight: '0px' }}>
+                <div className='card d-flex justify-content-between mt-4' style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
+                    <div className='card-summary' style={{ height: '500px', width: '400px', marginRight: '20px' }}>
+                        <h4>Booking Summary</h4>
                         <div className="summary-item">
                             <Label htmlFor="bus-id">Bus ID:</Label>
                             <Input type="text" id="bus-id" value={busId || 'N/A'} readOnly />
@@ -137,19 +112,15 @@ const AcBus = () => {
                             <Input type="text" id="total-price" value={`$${totalPrice}`} readOnly />
                         </div>
 
-                        <div className='btn-container d-flex justify-content-between mt-5' >
-                            <button className="pay-button  btn btn-primary" onClick={handlePayment}> To Pay</button>
-                            <button className="pay-button btn  btn-primary" onClick={handleDownloadTicket}>Download Ticket</button>
+                        <div className='btn-container d-flex justify-content-between mt-5'>
+                            <button className="pay-button btn btn-primary" onClick={handlePayment}>To Pay</button>
+                            <button className="pay-button btn btn-primary" onClick={handleDownloadTicket}>Download Ticket</button>
                         </div>
                     </div>
-                    
 
-
-
-                    
-                    <div className="bus" style={{ marginRight: '30px', marginTop: '50px' }}>
+                    <div className="bus" style={{ flexGrow: 1, marginTop: '50px' }}>
                         {rows.map((row, rowIndex) => (
-                            <div key={rowIndex} className="bus-row" style={{ display: 'flex', justifyContent: 'center' }}>
+                            <div key={rowIndex} className="bus-row">
                                 {row.map((seatNumber, seatIndex) =>
                                     seatNumber === null ? (
                                         <div key={seatIndex} className="empty-space" style={{ width: '40px', height: '40px', margin: '3px' }} />
@@ -173,13 +144,8 @@ const AcBus = () => {
                             </div>
                         ))}
                     </div>
-
-
                 </div>
             </div>
-
-            {/* 
-        <Footer /> */}
         </div>
     );
 };

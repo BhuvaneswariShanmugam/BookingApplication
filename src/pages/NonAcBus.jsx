@@ -6,15 +6,18 @@ import Input from '../components/Input';
 import Label from '../components/Label';
 import seat from '../assets/seat.jpg';
 import Navbar from '../auth/Navbar';
+import rating from '../assets/rating.jpg';
 
 const NonACBus = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const { bus, from, to, date } = location.state || {};
-    const busId = bus?.id;
+    const busId = bus?.busId;
 
     const [selectedSeats, setSelectedSeats] = useState([]);
     const [isPaymentSuccessful, setIsPaymentSuccessful] = useState(false);
+    const [viewSeats, setViewSeats] = useState(false);
+
     const [createBooking] = useCreateBookingMutation();
 
     const rows = [
@@ -34,10 +37,11 @@ const NonACBus = () => {
         }
     };
 
-    const totalPrice = selectedSeats.length * bus.price;
+    const totalPrice = selectedSeats.length * bus.discountedPrice;
 
     const handlePayment = async () => {
         if (selectedSeats.length > 0) {
+            console.log('Selected Seats:', selectedSeats);
             try {
                 const bookingDetails = {
                     pickupPoint: from,
@@ -46,8 +50,8 @@ const NonACBus = () => {
                     busNumber: busId,
                     busType: bus.type || 'Non-AC',
                     bookedNoOfSeats: selectedSeats,
-                    perSeatAmount: bus.price,
-                    totalAmount: totalPrice,
+                    perSeatAmount: bus.discountedPrice,
+                    totalAmount: selectedSeats.length * bus.discountedPrice,
                 };
 
                 console.log('Booking payload:', JSON.stringify(bookingDetails));
@@ -81,104 +85,81 @@ const NonACBus = () => {
         }
     };
 
+    const handleViewSeats = () => {
+        setViewSeats(true);
+    }; 
+
     return (
         <div>
-            <Navbar />
-            <div className="bus-container" style={{ marginTop: '0px',height:'87vh' }}>
-                <div >
-                    {/* <h2>Select Your AC Seat</h2> */}
-                    <div className="bus">
-                        <div className="bus-image" style={{ marginTop: '100px' }}>
-                            <img src={bus?.imgSrc || seat} alt={`Bus ${bus?.id}`} style={{ width: '550px', height: 'auto', paddingBottom: '4px', border: 'none', top: '200px' }} />
-                            <div className='text' style={{ width: '700px', height: '150px' }}>
-                                <h2 className="mb-2">NON-AC Bus Travel</h2>
-                                <p>⭐⭐⭐⭐⭐(4.5)</p>
-                                <p>
-                                    Bus air conditioners are indispensable for providing acomfortable and enjoyable journey for passengers. By understanding the benefits, considerations, and maintenance
-                                    tips associated with bus air conditioners, operators can make informed decisions to enhance passenger experience.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div>
-
-                
-
-                <div>
+           
+            <div className="bus-container" style={{ marginTop: '0px' }}>
+                <div className='card d-flex justify-content-between mt-4' style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
+                <div className='card-summary' style={{ height: '500px', width: '400px', marginRight: '20px' }}>
                     <h4>Booking Summary</h4>
-                    <div className="summary"  style={{ marginTop: '50px', marginRight: '20px', marginLeft: '20px' }}>
-                        <div className="summary-item">
-                            <Label htmlFor="bus-id">Bus ID:</Label>
-                            <Input type="text" id="bus-id" value={busId || 'N/A'} readOnly />
-                        </div>
-                        <div className="summary-item">
-                            <Label htmlFor="from-point">From:</Label>
-                            <Input type="text" id="from-point" value={from || ''} readOnly />
-                        </div>
-                        <div className="summary-item">
-                            <Label htmlFor="to-point">To:</Label>
-                            <Input type="text" id="to-point" value={to || ''} readOnly />
-                        </div>
-                        <div className="summary-item">
-                            <Label htmlFor="pickup-date">Date:</Label>
-                            <Input type="text" id="pickup-date" value={date || ''} readOnly />
-                        </div>
-                        <div className="summary-item">
-                            <Label htmlFor="bus-type">Bus Type:</Label>
-                            <Input type="text" id="bus-type" value={bus.type || 'Non-AC'} readOnly />
-                        </div>
-                        <div className="summary-item">
-                            <Label htmlFor="selected-seats">Selected Seats:</Label>
-                            <Input type="text" id="selected-seats" value={selectedSeats.join(', ') || 'None'} readOnly />
-                        </div>
-                        <div className="summary-item" style={{ paddingBottom: '5px' }}>
-                            <Label htmlFor="total-price">Total Price:</Label>
-                            <Input type="text" id="total-price" value={`$${totalPrice}`} readOnly />
-                        </div>
+                    <div className="summary-item">
+                        <Label htmlFor="bus-id">Bus ID:</Label>
+                        <Input type="text" id="bus-id" value={busId || 'N/A'} readOnly />
+                    </div>
+                    <div className="summary-item">
+                        <Label htmlFor="from-point">From:</Label>
+                        <Input type="text" id="from-point" value={from || ''} readOnly />
+                    </div>
+                    <div className="summary-item">
+                        <Label htmlFor="to-point">To:</Label>
+                        <Input type="text" id="to-point" value={to || ''} readOnly />
+                    </div>
+                    <div className="summary-item">
+                        <Label htmlFor="pickup-date">Date:</Label>
+                        <Input type="text" id="pickup-date" value={date || ''} readOnly />
+                    </div>
+                    <div className="summary-item">
+                        <Label htmlFor="bus-type">Bus Type:</Label>
+                        <Input type="text" id="bus-type" value={bus.type || 'Non-AC'} readOnly />
+                    </div>
+                    <div className="summary-item">
+                        <Label htmlFor="selected-seats">Selected Seats:</Label>
+                        <Input type="text" id="selected-seats" value={selectedSeats.join(', ') || 'None'} readOnly />
+                    </div>
+                    <div className="summary-item" style={{ paddingBottom: '5px' }}>
+                        <Label htmlFor="total-price">Total Price:</Label>
+                        <Input type="text" id="total-price" value={`$${totalPrice}`} readOnly />
+                    </div>
 
-                        <div className='btn-container d-flex justify-content-between mt-5' >
-                            <button className="pay-button  btn btn-primary" onClick={handlePayment}> To Pay</button>
-                            <button className="pay-button btn  btn-primary" onClick={handleDownloadTicket}>Download Ticket</button>
-                        </div>
+                    <div className='btn-container d-flex justify-content-between mt-5'>
+                        <button className="pay-button btn btn-primary" onClick={handlePayment}>To Pay</button>
+                        <button className="pay-button btn btn-primary" onClick={handleDownloadTicket}>Download Ticket</button>
                     </div>
-                    </div>
-               
+                </div>
 
-                <div>
-                    
-                    <div className="bus" style={{ marginRight: '30px', marginTop: '50px' }}>
-                        {rows.map((row, rowIndex) => (
-                            <div key={rowIndex} className="bus-row" style={{ display: 'flex', justifyContent: 'center' }}>
-                                {row.map((seatNumber, seatIndex) =>
-                                    seatNumber === null ? (
-                                        <div key={seatIndex} className="empty-space" style={{ width: '40px', height: '40px', margin: '3px' }} />
-                                    ) : (
-                                        <img
-                                            key={seatNumber}
-                                            src={seat}
-                                            alt={`Seat ${seatNumber}`}
-                                            className={`seat ${selectedSeats.includes(seatNumber) ? 'selected' : ''}`}
-                                            onClick={() => toggleSeatSelection(seatNumber)}
-                                            style={{
-                                                width: '40px',
-                                                height: '40px',
-                                                margin: '3px',
-                                                cursor: 'pointer',
-                                                border: selectedSeats.includes(seatNumber) ? '2px solid green' : '2px solid transparent'
-                                            }}
-                                        />
-                                    )
-                                )}
-                            </div>
-                        ))}
-                    </div>
+                <div className="bus" style={{ flexGrow: 1, marginTop: '50px' }}>
+                    {rows.map((row, rowIndex) => (
+                        <div key={rowIndex} className="bus-row">
+                            {row.map((seatNumber, seatIndex) =>
+                                seatNumber === null ? (
+                                    <div key={seatIndex} className="empty-space" style={{ width: '40px', height: '40px', margin: '3px' }} />
+                                ) : (
+                                    <img
+                                        key={seatNumber}
+                                        src={seat}
+                                        alt={`Seat ${seatNumber}`}
+                                        className={`seat ${selectedSeats.includes(seatNumber) ? 'selected' : ''}`}
+                                        onClick={() => toggleSeatSelection(seatNumber)}
+                                        style={{
+                                            width: '40px',
+                                            height: '40px',
+                                            margin: '3px',
+                                            cursor: 'pointer',
+                                            border: selectedSeats.includes(seatNumber) ? '2px solid green' : '2px solid transparent'
+                                        }}
+                                    />
+                                )
+                            )}
+                        </div>
+                    ))}
                 </div>
             </div>
 
-
-            </div>
+        </div>
         </div>
     );
 };

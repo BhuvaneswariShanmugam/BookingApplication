@@ -9,7 +9,7 @@ import Profile from './pages/Profile';
 import Booking from './pages/Booking';
 import SleeperBus from './pages/SleeperBus';
 import Layout from './pages/Layout';
-import CardGrid from './pages/listOfBuses'; 
+import AvailableBuses from './pages/listOfBuses'; 
 import AcBus from './pages/AcBus';
 import NonAcBus from './pages/NonAcBus';
 import BookingDetails from './pages/BookingDetails';
@@ -28,7 +28,7 @@ const App = () => {
           <Route path="/profile" element={<Profile />} />
           <Route path="/booking" element={<Booking />} />
           <Route path="/sleeper-bus-booking" element={<SleeperBus />} />
-          <Route path="/buses" element={<CardGrid />}/>
+          <Route path="/buses" element={< AvailableBuses/>}/>
           <Route path="/ac-bus-booking" element={< AcBus/>}/>
           <Route path="/non-ac-bus-booking" element={< NonAcBus/>}/>
           <Route path="/bookingDetails" element={<BookingDetails/>}/>

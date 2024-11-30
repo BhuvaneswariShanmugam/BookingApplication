@@ -20,7 +20,7 @@ const Home = () => {
   const [searchTrips] = useSearchTripsMutation();
   const locations = ['Salem', 'Namakkal', 'Chennai', 'Coimbatore', 'Bangalore'];
 
-  // Create a ref for the search container
+
   const searchContainerRef = useRef(null);
 
   useEffect(() => {
@@ -36,12 +36,12 @@ const Home = () => {
       alert('Please fill in all fields.');
       return;
     }
-  
+
     if (pickupPoint === destinationPoint) {
       alert('Pickup and destination points cannot be the same.');
       return;
     }
-  
+
     setIsLoading(true);
     try {
       const tripExists = await searchTrips({
@@ -49,9 +49,9 @@ const Home = () => {
         destinationPoint,
         pickupTime: pickupDate,
       }).unwrap();
-  
+
       setIsLoading(false);
-  
+
       if (tripExists) {
         navigate('/buses', {
           state: {
@@ -70,7 +70,7 @@ const Home = () => {
     }
   };
 
-  // Scroll to the search container when clicking the button
+
   const scrollToSearchContainer = () => {
     if (searchContainerRef.current) {
       searchContainerRef.current.scrollIntoView({ behavior: 'smooth' });
@@ -80,10 +80,10 @@ const Home = () => {
   return (
     <div>
       <Navbar />
-      <div className="home-container">
+      <div className="home-container d-flex ">
         <div className="button-container">
           <h1>
-            Reserve Your Bus 
+            Reserve Your Bus
             <span className="ticket" style={{ color: '#B966E2' }}>
               Tickets
             </span>
@@ -94,15 +94,18 @@ const Home = () => {
               Find and book your bus tickets with just a few clicks. We offer a wide range of bus routes and schedules to suit your needs.
             </p>
           </div>
-          {/* Update button to call scroll function */}
-          <button onClick={() => { scrollToSearchContainer(); }}>Reserve Seat Now</button>
+          <div className="home-btn d-flex justify-content-between" style={{ gap: '15px' }}>
+            <button onClick={() => { scrollToSearchContainer(); }}>Book Now</button>
+            <button onClick={() => { navigate("/bookingDetails") }}>Booking Details</button>
+          </div>
+
         </div>
         <div className="right-img-container">
           <img src={HomeBus} alt="homepage-right-img" />
         </div>
       </div>
 
-      {/* Search Container with ref */}
+
       <div ref={searchContainerRef} className="card search-container shadow-lg">
         <div className="row g-3">
           <div className="col">
@@ -201,17 +204,17 @@ const Home = () => {
             <div className="card-body p-4">
               <h5 className="card-title text-center mb-4">BOOK BUS TICKETS ONLINE</h5>
               <p className="card-text mb-3">
-              Bigtraze Travels is India's largest brand for online bus ticket booking and offers an easy-to-use online bus and train ticket booking; with over 36 million satisfied customers, 3500+ bus operators to choose from, and plenty of offers on bus ticket booking, redBus makes road journeys super convenient for travellers. A leading platform for booking bus tickets, redBus has been the leader in online bus booking over the past 17 years across thousands of cities and lakhs of routes in India.
-            </p>
-            <p className="card-text ">
-              Booking a bus ticket online on the redBus app or website is very simple. You can download the redBus app or visit redbus.in and enter your source, destination & travel date to check the top-rated bus services available. You can then compare bus prices, user ratings & amenities, select your preferred seat, boarding & dropping points and pay using multiple payment options like UPI, debit or credit card, net banking, and more. With redBus, get assured safe & secure payment methods and guaranteed travel with the best seat and bus operator of your choice. Once the bus booking payment is confirmed, all you have to do is pack your bags and get ready to travel with the m-ticket, which you can show to the bus operator on your mobile before boarding the bus. Online bus ticket booking with redBus is that simple!
-            </p>
+                Bigtraze Travels is India's largest brand for online bus ticket booking and offers an easy-to-use online bus and train ticket booking; with over 36 million satisfied customers, 3500+ bus operators to choose from, and plenty of offers on bus ticket booking, redBus makes road journeys super convenient for travellers. A leading platform for booking bus tickets, redBus has been the leader in online bus booking over the past 17 years across thousands of cities and lakhs of routes in India.
+              </p>
+              <p className="card-text ">
+                Booking a bus ticket online on the redBus app or website is very simple. You can download the redBus app or visit redbus.in and enter your source, destination & travel date to check the top-rated bus services available. You can then compare bus prices, user ratings & amenities, select your preferred seat, boarding & dropping points and pay using multiple payment options like UPI, debit or credit card, net banking, and more. With redBus, get assured safe & secure payment methods and guaranteed travel with the best seat and bus operator of your choice. Once the bus booking payment is confirmed, all you have to do is pack your bags and get ready to travel with the m-ticket, which you can show to the bus operator on your mobile before boarding the bus. Online bus ticket booking with redBus is that simple!
+              </p>
             </div>
           </div>
         </div>
 
       </div> {/* End of Container */}
-      
+
     </div> // End of Main Div
   );
 };

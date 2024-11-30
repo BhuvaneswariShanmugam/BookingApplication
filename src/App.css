@@ -44,6 +44,7 @@ html, body {
     transform: rotate(360deg);
   }
 }
+
 /* home page */
 .home-container {
   min-height: 100vh;
@@ -90,7 +91,7 @@ html, body {
   position: absolute; 
   top: 100px; 
   color: #f5f5f5;
-  width: 500px;
+  width: 400px;
   height: auto;
   left: 150px;
   flex-direction: column; 
@@ -115,33 +116,36 @@ html, body {
   border-radius: 7px;
   color: #f5f5f5;
   font-size: 20px;
+  padding-right: 4px;
 }
 
+.home-btn{
+  padding-right: 4px;
+}
 /* Background Container */
 .customer-container {
-  min-height: 100vh;
-  position: relative;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
+
+
+  position: absolute; 
+  top: 100px; 
+  color: #f5f5f5;
+  width: 500px;
+  height: auto;
+  left: 300px;
+
+  flex-direction: column; 
+  gap: 100px; 
 }
 
-.customer-container::before {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: url('./assets/bg.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  filter: blur(7px);
-  z-index: -1;
+
+.customer-container {
+  padding: 20px;
 }
 
+.card {
+  margin: 10px;
+
+}
 .search-container {
   position: absolute;
   top: 30px;
@@ -159,7 +163,6 @@ html, body {
 .search-btn {
   border: none;
   border-radius: 4px;
-
   color: #333;
   background-color: #f3f3f3;
   cursor: pointer;
@@ -169,22 +172,34 @@ html, body {
 
 
 /* Card Styles */
-.card {
-  position: relative;
-  z-index: 1; 
-  background-color: #fff; 
+/* App.css */
+/* .bus-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100%;
+  margin-top: 0;
 }
 
-/* Bus Container */
-.bus-container {
-  display: flex;
-  justify-content: space-around; 
+.card {
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
   padding: 20px;
-  margin-top: 40px; 
-  background-color: rgba(248, 249, 250, 0.9); 
-  border-radius: 10px;
-  
+  margin: 20px 0;
 }
+
+.card-summary {
+  margin-top: 20px;
+  text-align: left;
+  padding: 15px;
+}
+
+.btn-container {
+  display: flex;
+  justify-content: space-around;
+  gap: 10px;
+} */
 
 
 /* Seat Styles */
@@ -242,10 +257,10 @@ html, body {
 }
 
 /* Booking Summary Styles */
-
+/* 
 .book-summary {
   padding: 15px;
-  margin-top: 20px;
+  margin-top: 100px;
   border-radius: 5px; 
   background-color: #f9f9f9; 
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
@@ -253,7 +268,7 @@ html, body {
   flex-direction: column;     
   align-items: center;       
   justify-content: center;   
-}
+} */
 
 .summary-item {
   display: flex;

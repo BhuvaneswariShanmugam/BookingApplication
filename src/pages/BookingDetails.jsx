@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useGetAllBookingsQuery, useDeleteBookingMutation } from '../redux/service/BookingApi';
 import { Button, Card, Row, Col } from 'react-bootstrap';
+import Navbar from '../auth/Navbar';
 
 const BookingDetails = () => {
     const navigate = useNavigate();
@@ -33,7 +34,9 @@ const BookingDetails = () => {
     const textColor = "#123456";
 
     return (
-        <div className="booking-details-container d-flex justify-content-center align-items-center">
+        <div>
+            <Navbar/>
+            <div className="booking-details-container d-flex justify-content-center align-items-center">
             <div
                 className={`card border-0 shadow-lg bg-light mx-auto ${
                     data?.length === 1 ? 'p-3' : 'p-4'
@@ -132,6 +135,7 @@ const BookingDetails = () => {
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     );
 };
